@@ -1,0 +1,63 @@
+HELP.md
+**/target/
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Node / Frontend ###
+**/node_modules/
+**/dist/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Application Configuration & Secrets ###
+**/src/main/resources/application-local.properties
+*.properties.local
+*.env
+.env
+.env.*
+!.env.example
+
+### Local Project Media Assets ###
+nhạc dự án/
+
+### Documentation / Working Files ###
+docs/backlog_corrected.csv
+docs/backlog_corrected.tsv
+docs/UC-21_Manage_Album_Specification.md
+### Diagrams & Design Assets ###
+diagram/
+**/diagram/
+*.drawio

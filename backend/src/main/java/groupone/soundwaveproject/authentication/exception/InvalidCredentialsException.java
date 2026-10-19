@@ -1,0 +1,11 @@
+package groupone.soundwaveproject.authentication.exception;
+
+public class InvalidCredentialsException extends AuthenticationException {
+    public InvalidCredentialsException() {
+        super("INVALID_CREDENTIALS", "Email or password is incorrect.");
+    }
+
+    public InvalidCredentialsException(String message) {
+        super("INVALID_CREDENTIALS", message);
+    }
+}
