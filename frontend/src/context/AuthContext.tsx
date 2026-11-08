@@ -32,10 +32,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let active = true;
-    localStorage.removeItem("soundwave_user");
-    localStorage.removeItem("soundwave_access_token");
-    sessionStorage.removeItem("soundwave_user");
-    sessionStorage.removeItem("soundwave_access_token");
+    localStorage.removeItem("magisound_user");
+    localStorage.removeItem("magisound_access_token");
+    sessionStorage.removeItem("magisound_user");
+    sessionStorage.removeItem("magisound_access_token");
 
     void authApi.refresh()
       .then((session) => {
@@ -67,10 +67,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
     setAccessToken(session.accessToken);
     setUser(loggedInUser);
-    localStorage.removeItem("soundwave_user");
-    localStorage.removeItem("soundwave_access_token");
-    sessionStorage.removeItem("soundwave_user");
-    sessionStorage.removeItem("soundwave_access_token");
+    localStorage.removeItem("magisound_user");
+    localStorage.removeItem("magisound_access_token");
+    sessionStorage.removeItem("magisound_user");
+    sessionStorage.removeItem("magisound_access_token");
     window.location.hash =
       session.user.role === "ADMIN"
         ? "#/admin/dashboard"
@@ -117,10 +117,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setUser(null);
       clearAccessToken();
-      localStorage.removeItem("soundwave_user");
-      localStorage.removeItem("soundwave_access_token");
-      sessionStorage.removeItem("soundwave_user");
-      sessionStorage.removeItem("soundwave_access_token");
+      localStorage.removeItem("magisound_user");
+      localStorage.removeItem("magisound_access_token");
+      sessionStorage.removeItem("magisound_user");
+      sessionStorage.removeItem("magisound_access_token");
       setLogoutSubmitting(false);
       setLogoutDialogOpen(false);
       setLogoutNotice(

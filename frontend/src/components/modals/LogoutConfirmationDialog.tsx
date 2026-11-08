@@ -41,7 +41,7 @@ export function LogoutConfirmationDialog({ open, submitting, onCancel, onConfirm
       >
         <div className="logout-dialog-icon"><AlertIcon width={25} height={25} /></div>
         <p className="eyebrow">ACCOUNT SESSION</p>
-        <h2 id="logout-dialog-title">Log out of SoundWave?</h2>
+        <h2 id="logout-dialog-title">Log out of MagiSound?</h2>
         <p id="logout-dialog-description">
           You will need to enter your email and password again to access your personal library.
         </p>

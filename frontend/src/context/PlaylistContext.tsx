@@ -43,7 +43,7 @@ export function PlaylistProvider({ children }: { children: React.ReactNode }) {
   const { playTrack, setQueueOpen } = usePlayer();
 
   const [playlists, setPlaylists] = useState<Playlist[]>(() => {
-    const saved = localStorage.getItem("soundwave_playlists");
+    const saved = localStorage.getItem("magisound_playlists");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -85,7 +85,7 @@ export function PlaylistProvider({ children }: { children: React.ReactNode }) {
   }, [isAuthenticated, user?.role]);
 
   useEffect(() => {
-    localStorage.setItem("soundwave_playlists", JSON.stringify(playlists));
+    localStorage.setItem("magisound_playlists", JSON.stringify(playlists));
   }, [playlists]);
 
   const openCreatePlaylist = useCallback(() => {

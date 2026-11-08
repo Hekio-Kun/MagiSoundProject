@@ -426,7 +426,7 @@ export function PlaylistFormModal({ open, onClose, playlist, onSave }: Props) {
                   <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--sw-primary)" }}>
                     Choose image file (JPG, PNG)
                   </span>
-                  <span style={{ fontSize: "13px", color: "var(--sw-muted)" }}> or drag & drop here</span>
+                  <span style={{ fontSize: "13px", color: "var(--sw-muted)" }}> or drag and drop here</span>
                   <div style={{ fontSize: "11px", color: "var(--sw-muted)", marginTop: "3px" }}>
                     Supports JPG, JPEG, PNG, WEBP (Max 5MB)
                   </div>

@@ -204,7 +204,7 @@ export function ManagePlaylistTracksModal({
           </button>
         </div>
 
-        {/* Toolbar: Sleek Search & Add Track Button */}
+        {/* Toolbar: Sleek Search and Add Track Button */}
         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <div style={{ position: "relative", flex: 1 }}>
             <SearchIcon
@@ -351,7 +351,7 @@ export function ManagePlaylistTracksModal({
                 No tracks in this playlist yet
               </p>
               <p style={{ margin: "0 0 16px", fontSize: "13px", color: "var(--sw-muted)", maxWidth: "320px" }}>
-                Add songs from the SoundWave catalog to start listening.
+                Add songs from the MagiSound catalog to start listening.
               </p>
               <button
                 type="button"

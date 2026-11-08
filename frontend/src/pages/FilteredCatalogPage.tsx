@@ -73,7 +73,7 @@ export function FilteredCatalogPage({
     };
   }, []);
 
-  // Phase 2 & 3: Query matching published tracks whenever genre or sort changes
+  // Phase 2 and 3: Query matching published tracks whenever genre or sort changes
   useEffect(() => {
     let active = true;
     setTracksLoading(true);
@@ -109,7 +109,7 @@ export function FilteredCatalogPage({
     [genresList, selectedGenre]
   );
 
-  // Phase 2: Select genre filter & trigger query with unselect reset to 'all'
+  // Phase 2: Select genre filter and trigger query with unselect reset to 'all'
   const updateFilters = (newGenre: string, newSort: "newest" | "trending" | "title") => {
     setSelectedGenre(newGenre);
     setSortBy(newSort);
@@ -138,7 +138,7 @@ export function FilteredCatalogPage({
 
   return (
     <div className="catalog-browse-page" style={{ padding: "0 0 60px 0" }}>
-      {/* Page Title & Breadcrumb Banner */}
+      {/* Page Title and Breadcrumb Banner */}
       <div className="page-title-banner" style={{ marginBottom: "24px" }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
@@ -147,11 +147,11 @@ export function FilteredCatalogPage({
             </span>
           </div>
           <h1 className="page-heading">
-            {activeGenreObj ? `${activeGenreObj.name} Music` : "Filter by Genre & Catalog"}
+            {activeGenreObj ? `${activeGenreObj.name} Music` : "Filter by Genre and Catalog"}
           </h1>
           <p className="page-subtext" style={{ color: "var(--sw-muted)", marginTop: "4px", fontSize: "14px" }}>
             {activeGenreObj
-              ? activeGenreObj.description || `Discover trending and fresh ${activeGenreObj.name} tracks on SoundWave.`
+              ? activeGenreObj.description || `Discover trending and fresh ${activeGenreObj.name} tracks on MagiSound.`
               : "Filter tracks by genre, sort by newest releases or trending plays, and stream songs."}
           </p>
         </div>
@@ -337,7 +337,7 @@ export function FilteredCatalogPage({
           </div>
         </div>
       ) : tracks.length > 0 ? (
-        /* Step 31 & 32: Render matching Track Cards */
+        /* Step 31 and 32: Render matching Track Cards */
         <div className="sw-track-grid sw-track-grid--catalog">
           {tracks.map((track) => (
             <TrackCard

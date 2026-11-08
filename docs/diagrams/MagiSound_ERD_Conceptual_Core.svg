@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="100%" height="auto" style="background:#f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#cbd5e1" stroke-width="0.6"/>
+    </pattern>
+    <filter id="shadow2" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#grid2)"/>
+
+  <!-- Title -->
+  <rect x="25" y="15" width="900" height="38" rx="5" fill="#1e3a8a"/>
+  <text x="475" y="39" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">
+    MAGISOUND — CONCEPTUAL CORE ERD (CHEN NOTATION ARCHITECTURE)
+  </text>
+
+  <!-- Connectors -->
+  <g stroke="#2563eb" stroke-width="2" fill="none">
+    <!-- User -> D1 -> Playlist -->
+    <path d="M 160 260 L 160 115 L 235 115"/>
+    <line x1="315" y1="115" x2="390" y2="115"/>
+
+    <!-- User -> D2 -> Track -->
+    <line x1="160" y1="260" x2="235" y2="260"/>
+    <line x1="315" y1="260" x2="390" y2="260"/>
+
+    <!-- User -> D3 -> ListeningHistory -->
+    <path d="M 160 260 L 160 415 L 235 415"/>
+    <line x1="315" y1="415" x2="390" y2="415"/>
+
+    <!-- Playlist -> D4 -> Track -->
+    <line x1="470" y1="140" x2="470" y2="185"/>
+    <line x1="470" y1="235" x2="470" y2="235"/>
+    <line x1="470" y1="235" x2="470" y2="235"/>
+    <line x1="470" y1="235" x2="470" y2="235"/>
+    <line x1="470" y1="235" x2="470" y2="235"/>
+    <line x1="470" y1="210" x2="470" y2="235"/>
+
+    <!-- Track -> D5 -> ListeningHistory -->
+    <line x1="470" y1="285" x2="470" y2="335"/>
+    <line x1="470" y1="385" x2="470" y2="390"/>
+
+    <!-- Track -> D6 -> Genre -->
+    <line x1="550" y1="260" x2="625" y2="260"/>
+    <line x1="705" y1="260" x2="750" y2="260"/>
+
+    <!-- ListeningHistory -> D7 -> ContentReport -->
+    <line x1="550" y1="415" x2="625" y2="415"/>
+    <line x1="705" y1="415" x2="750" y2="415"/>
+
+    <!-- ContentReport -> D8 -> Staff -->
+    <path d="M 830 415 L 875 415 L 875 335"/>
+    <line x1="875" y1="285" x2="875" y2="285"/>
+    <line x1="875" y1="285" x2="875" y2="260"/>
+  </g>
+
+  <!-- 7 Entities (Rectangles with soft blue fill like Image 1) -->
+  <!-- 1. USER (Far Left) -->
+  <g filter="url(#shadow2)">
+    <rect x="40" y="235" width="120" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="100" y="265" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">USER</text>
+  </g>
+
+  <!-- 2. PLAYLIST (Top Center) -->
+  <g filter="url(#shadow2)">
+    <rect x="390" y="90" width="160" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="470" y="120" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">PLAYLIST</text>
+  </g>
+
+  <!-- 3. TRACK (Center) -->
+  <g filter="url(#shadow2)">
+    <rect x="390" y="235" width="160" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="470" y="265" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="800">TRACK</text>
+  </g>
+
+  <!-- 4. LISTENING_HISTORY (Bottom Center) -->
+  <g filter="url(#shadow2)">
+    <rect x="390" y="390" width="160" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="470" y="420" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="700">LISTENING_HISTORY</text>
+  </g>
+
+  <!-- 5. GENRE (Mid Right Top) -->
+  <g filter="url(#shadow2)">
+    <rect x="750" y="235" width="150" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="825" y="265" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">GENRE</text>
+  </g>
+
+  <!-- 6. CONTENT_REPORT (Mid Right Bottom) -->
+  <g filter="url(#shadow2)">
+    <rect x="750" y="390" width="150" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="825" y="420" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">CONTENT_REPORT</text>
+  </g>
+
+  <!-- 7. STAFF (Far Right Top) -->
+  <g filter="url(#shadow2)">
+    <rect x="800" y="100" width="130" height="50" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="865" y="130" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">STAFF</text>
+  </g>
+
+  <!-- 8 Diamonds (Relationships) -->
+
+  <g filter="url(#shadow2)">
+    <polygon points="275,97 315,115 275,133 235,115" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="275" y="119" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">CREATES</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="275,242 315,260 275,278 235,260" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="275" y="264" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">UPLOADS</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="275,397 315,415 275,433 235,415" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="275" y="419" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">LISTENS</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="470,167 510,185 470,203 430,185" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="470" y="189" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">CONTAINS</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="470,317 510,335 470,353 430,335" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="470" y="339" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">RECORDS</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="665,242 705,260 665,278 625,260" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="665" y="264" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">BELONGS_TO</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="665,397 705,415 665,433 625,415" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="665" y="419" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">TRIGGERS</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <polygon points="875,267 915,285 875,303 835,285" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="875" y="289" text-anchor="middle" fill="#1e3a8a" font-size="9" font-weight="700">HANDLES</text>
+  </g></svg>

@@ -80,6 +80,6 @@ export const authApi = {
 
 export function getAuthErrorMessage(error: unknown, fallback: string) {
   if (error instanceof AuthApiError) return error.message;
-  if (error instanceof TypeError) return "Unable to connect to SoundWave. Please try again.";
+  if (error instanceof TypeError) return "Unable to connect to MagiSound. Please try again.";
   return fallback;
 }

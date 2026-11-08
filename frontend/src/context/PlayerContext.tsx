@@ -43,7 +43,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
 
   const [currentTrack, setCurrentTrack] = useState<LandingTrack | null>(() => {
     try {
-      const savedId = sessionStorage.getItem("soundwave_current_track_id");
+      const savedId = sessionStorage.getItem("magisound_current_track_id");
       if (savedId) {
         const found = tracks.find((t) => t.id === Number(savedId));
         if (found) return found;
@@ -62,7 +62,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (currentTrack) {
       try {
-        sessionStorage.setItem("soundwave_current_track_id", String(currentTrack.id));
+        sessionStorage.setItem("magisound_current_track_id", String(currentTrack.id));
       } catch {
         // ignore
       }

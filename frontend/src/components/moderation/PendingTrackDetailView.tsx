@@ -264,7 +264,7 @@ export function PendingTrackDetailView({
 
   return (
     <div className="staff-detail-view-container">
-      {/* Top Breadcrumb & Navigation Bar */}
+      {/* Top Breadcrumb and Navigation Bar */}
       <div className="staff-detail-top-nav">
         <button
           type="button"
@@ -295,7 +295,7 @@ export function PendingTrackDetailView({
             <i />
             <span>
               {detail.status === "APPROVED"
-                ? "Approved & Published"
+                ? "Approved and Published"
                 : detail.status === "REJECTED"
                 ? "Rejected"
                 : "Pending Review"}
@@ -325,7 +325,7 @@ export function PendingTrackDetailView({
         </div>
       ) : detail ? (
         <div className="staff-detail-content-body">
-          {/* Status & Submission Metadata Banner */}
+          {/* Status and Submission Metadata Banner */}
           <div className="staff-inspector-status-banner">
             <div className="staff-status-group">
               <span className="staff-status-label">Submission Status:</span>
@@ -341,7 +341,7 @@ export function PendingTrackDetailView({
                 <i />
                 <span>
                   {detail.status === "APPROVED"
-                    ? "Approved & Published"
+                    ? "Approved and Published"
                     : detail.status === "REJECTED"
                     ? "Rejected"
                     : "Pending Review"}
@@ -355,7 +355,7 @@ export function PendingTrackDetailView({
             </div>
           </div>
 
-          {/* Hero Card & Integrated Stream Player (Spacious Full-Width) */}
+          {/* Hero Card and Integrated Stream Player (Spacious Full-Width) */}
           <div className="staff-inspector-hero-card staff-detail-hero-card">
             <div className="staff-hero-artwork-wrap staff-detail-artwork-wrap">
               <img
@@ -645,10 +645,10 @@ export function PendingTrackDetailView({
               {actionType === "APPROVE" ? (
                 <div className="staff-decision-panel is-approve">
                   <h4 className="staff-decision-panel-title text-success">
-                    Approve & Publish “{detail.track.title}”
+                    Approve and Publish “{detail.track.title}”
                   </h4>
                   <p className="staff-decision-panel-desc">
-                    The track will immediately change to <b>PUBLISHED</b> status and be streamable on SoundWave. An automated email notification will be delivered to the artist.
+                    The track will immediately change to <b>PUBLISHED</b> status and be streamable on MagiSound. An automated email notification will be delivered to the artist.
                   </p>
 
                   <label className="staff-input-group" htmlFor="detail-approve-note">
@@ -686,7 +686,7 @@ export function PendingTrackDetailView({
                       onClick={() => void handleApprove()}
                       disabled={submittingAction}
                     >
-                      {submittingAction ? "Publishing..." : "Confirm & Publish Track"}
+                      {submittingAction ? "Publishing..." : "Confirm and Publish Track"}
                     </button>
                   </div>
                 </div>
@@ -799,7 +799,7 @@ export function PendingTrackDetailView({
                       onClick={() => setActionType("APPROVE")}
                     >
                       <CheckIcon width={16} height={16} />
-                      <span>Approve & Publish</span>
+                      <span>Approve and Publish</span>
                     </button>
                     <button
                       type="button"

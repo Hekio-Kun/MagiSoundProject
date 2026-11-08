@@ -3,7 +3,7 @@ import { AppTopBar } from "../components/layout/AppTopBar";
 import { MobileBottomNav } from "../components/layout/MobileBottomNav";
 import { QueueDrawer } from "../components/player/QueueDrawer";
 import { Sidebar } from "../components/layout/Sidebar";
-import { SoundWaveFooter } from "../components/layout/SoundWaveFooter";
+import { MagiSoundFooter } from "../components/layout/MagiSoundFooter";
 import type { CurrentUser, LandingTrack } from "../types";
 
 /**
@@ -107,7 +107,7 @@ export function MusicAppShell({
           </main>
           {showFooter && (
             <div className="app-shell-footer">
-              <SoundWaveFooter hasPlayer={false} isAuthenticated={isAuthenticated} />
+              <MagiSoundFooter hasPlayer={false} isAuthenticated={isAuthenticated} />
             </div>
           )}
         </div>

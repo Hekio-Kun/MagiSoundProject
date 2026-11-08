@@ -159,7 +159,7 @@ export function ProfilePage({ onProfileUpdated }: Props) {
 
     {saved ? <div className="profile-form-success" role="status"><CheckIcon width={17} height={17} /><span>Profile updated successfully.</span></div> : null}
     {!editing ? <ProfileDashboard profile={profile} onEdit={beginEdit} /> : <form className="profile-settings-form" onSubmit={submit} noValidate>
-      <div className="profile-settings-heading"><div><span className="profile-section-kicker">EDIT MODE</span><h2>Update profile</h2><p>Changes will be reflected across your SoundWave account.</p></div><button type="button" className="button button-ghost" onClick={cancelEdit} disabled={saving}>Cancel</button></div>
+      <div className="profile-settings-heading"><div><span className="profile-section-kicker">EDIT MODE</span><h2>Update profile</h2><p>Changes will be reflected across your MagiSound account.</p></div><button type="button" className="button button-ghost" onClick={cancelEdit} disabled={saving}>Cancel</button></div>
       {apiError ? <div className="profile-form-alert" role="alert"><AlertIcon width={17} height={17} /><span>{apiError}</span></div> : null}
       <div className={`profile-avatar-editor ${fieldErrors.avatar ? "has-error" : ""}`}>
         <ProfileAvatar url={displayedAvatar} failed={avatarFailed} onError={() => setAvatarFailed(true)} compact />

@@ -288,7 +288,7 @@ export function NotificationDropdown({
           <div className="notif-footer">
             <span>
               <i />
-              Updates from your SoundWave workspace
+              Updates from your MagiSound workspace
             </span>
           </div>
         </div>

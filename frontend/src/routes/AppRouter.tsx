@@ -6,8 +6,6 @@ import { usePlaylists } from "../context/PlaylistContext";
 import { useRouter } from "../hooks/useRouter";
 import { initialStudioTracks } from "../data";
 
-import { AlbumDetailsPage } from "../pages/AlbumDetailsPage";
-import { CreateAlbumPage } from "../pages/CreateAlbumPage";
 import { ForgotPasswordPage, LoginPage, RegisterPage, ResetPasswordPage } from "../pages/AuthPages";
 import { CreatorProfilePage } from "../pages/CreatorProfilePage";
 import { ExplorePage } from "../pages/ExplorePage";
@@ -19,7 +17,6 @@ import { AdminDashboardPage, DashboardAccessDenied, StaffDashboardPage } from ".
 import { AdminGenreManagementPage } from "../pages/AdminGenreManagementPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { SearchPage } from "../pages/SearchPage";
-import { StudioAlbumDetailPage } from "../pages/StudioAlbumDetailPage";
 import { StudioPage } from "../pages/StudioPage";
 import { StudioTrackDetailPage } from "../pages/StudioTrackDetailPage";
 
@@ -101,7 +98,7 @@ export function AppRouter(): React.ReactElement | null {
     return <ResetPasswordPage email={queryParams.get("email") || ""} onNavigate={navigate} />;
   }
 
-  // 2. Discover & Catalog Routes
+  // 2. Discover and Catalog Routes
   if (isExploreRoute) {
     return (
       <ExplorePage
@@ -166,18 +163,6 @@ export function AppRouter(): React.ReactElement | null {
     );
   }
 
-  if (pathname.startsWith("/album/")) {
-    const albumId = Number(pathname.split("/")[2]) || 1;
-    return (
-      <AlbumDetailsPage
-        albumId={albumId}
-        currentTrack={currentTrack}
-        playing={playing}
-        onPlayTrack={playTrack}
-        onNavigate={navigate}
-      />
-    );
-  }
 
   if (pathname.startsWith("/creator/")) {
     const creatorId = Number(pathname.split("/")[2]) || 101;
@@ -192,7 +177,7 @@ export function AppRouter(): React.ReactElement | null {
     );
   }
 
-  // 3. User & Library Routes
+  // 3. User and Library Routes
   if (pathname === "/profile") {
     return user ? (
       <ProfilePage onProfileUpdated={handleProfileUpdated} />
@@ -344,37 +329,6 @@ export function AppRouter(): React.ReactElement | null {
     );
   }
 
-  if (pathname === "/studio/albums/create") {
-    if (!authReady || !isAuthenticated) return null;
-    return (
-      <CreateAlbumPage
-        isAuthenticated={isAuthenticated}
-        canCreate={user?.role === "LISTENER"}
-        currentUser={user}
-        onNavigate={navigate}
-      />
-    );
-  }
-
-  if (pathname.startsWith("/studio/albums/")) {
-    if (!authReady || !isAuthenticated) return null;
-    const parts = pathname.split("/");
-    const albumId = Number(parts[3]) || null;
-    if (!albumId) {
-      navigate("/studio");
-      return null;
-    }
-    return (
-      <StudioAlbumDetailPage
-        albumId={albumId}
-        currentUser={user}
-        onNavigate={navigate}
-        currentTrack={currentTrack}
-        playing={playing}
-        onPlayTrack={playTrack}
-      />
-    );
-  }
 
   if (pathname === "/studio") {
     if (!authReady || !isAuthenticated) return null;
@@ -382,7 +336,7 @@ export function AppRouter(): React.ReactElement | null {
   }
 
 
-  // 5. Operations & Administration Routes
+  // 5. Operations and Administration Routes
   if (pathname === "/admin/genres") {
     return user?.role === "ADMIN" ? (
       <AdminGenreManagementPage />

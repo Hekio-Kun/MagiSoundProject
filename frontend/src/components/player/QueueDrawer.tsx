@@ -259,7 +259,7 @@ export function QueueDrawer({
                   </div>
                   <div className="queue-track-info">
                     <p className="queue-track-title">{currentTrack.title}</p>
-                    <p className="queue-track-artist">{currentTrack.creator.displayName}</p>
+                    <p className="queue-track-artist">{currentTrack.creator?.displayName || "Artist"}</p>
                   </div>
                   <span className="queue-track-duration">{formatDuration(currentTrack.durationMs)}</span>
                 </div>
@@ -300,7 +300,7 @@ export function QueueDrawer({
                       </div>
                       <div className="queue-track-info" onClick={() => onPlayTrack(item)}>
                         <p className="queue-track-title">{item.title}</p>
-                        <p className="queue-track-artist">{item.creator.displayName}</p>
+                        <p className="queue-track-artist">{item.creator?.displayName || "Artist"}</p>
                       </div>
                       <span className="queue-track-duration">{formatDuration(item.durationMs)}</span>
                       {onReorderQueue && (

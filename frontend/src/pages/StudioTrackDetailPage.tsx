@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   studioApi,
-  type AlbumOption,
+  
   type ApiTrack,
   type GenreOption,
   type RejectionDetails,
@@ -164,10 +164,8 @@ export function StudioTrackDetailPage({
 
   // Edit form state
   const [genres, setGenres] = useState<GenreOption[]>([]);
-  const [albums, setAlbums] = useState<AlbumOption[]>([]);
   const [editTitle, setEditTitle] = useState("");
   const [editGenreId, setEditGenreId] = useState<number>(0);
-  const [editAlbumId, setEditAlbumId] = useState<number | "">("");
   const [editDescription, setEditDescription] = useState("");
   const [editAudioFile, setEditAudioFile] = useState<File | null>(null);
   const [editCoverFile, setEditCoverFile] = useState<File | null>(null);
@@ -204,14 +202,12 @@ export function StudioTrackDetailPage({
     let active = true;
     void fetchTrackData(active);
 
-    // Also load genres & albums for editing
+    // Also load genres and albums for editing
     studioApi.getGenres().then((g) => {
       if (active && g.length > 0) setGenres(g);
     }).catch(() => {});
 
-    studioApi.getMyAlbums().then((a) => {
-      if (active && a.length > 0) setAlbums(a);
-    }).catch(() => {});
+
 
     return () => {
       active = false;
@@ -300,7 +296,7 @@ export function StudioTrackDetailPage({
   const isDraft = rawStatus === "DRAFT";
 
   const statusLabel = isApproved
-    ? "Approved & Published"
+    ? "Approved and Published"
     : isPending
     ? "Pending Review"
     : isRejected
@@ -316,7 +312,7 @@ export function StudioTrackDetailPage({
     : "is-pending";
 
   const submitterName = currentUser?.displayName || currentUser?.username || "Artist";
-  const submitterEmail = currentUser?.email || "artist@soundwave.io";
+  const submitterEmail = currentUser?.email || "artist@magisound.io";
   const submitterUsername = currentUser?.username || currentUser?.email?.split("@")[0] || "artist";
 
   // Actions
@@ -324,7 +320,6 @@ export function StudioTrackDetailPage({
     if (!track) return;
     setEditTitle(track.title);
     setEditGenreId(track.genreId);
-    setEditAlbumId(track.albumId ?? "");
     setEditDescription(track.description ?? "");
     setEditLyricsContent(track.lyrics ?? "");
     setEditAudioFile(null);
@@ -375,7 +370,6 @@ export function StudioTrackDetailPage({
         {
           title: editTitle.trim(),
           genreId: editGenreId,
-          albumId: editAlbumId ? Number(editAlbumId) : undefined,
           description: editDescription.trim() || undefined,
           lyrics: editLyricsContent.trim() || undefined,
         },
@@ -519,7 +513,7 @@ export function StudioTrackDetailPage({
           boxSizing: "border-box",
         }}
       >
-        {/* Top Header & Navigation Bar - CÙNG 1 HÀNG NGANG Ở TRÊN DUY NHẤT */}
+        {/* Top Header and Navigation Bar - CÙNG 1 HÀNG NGANG Ở TRÊN DUY NHẤT */}
         <div className="studio-detail-top-nav-single-row">
           {/* Left: Back button + Breadcrumb */}
           <div className="studio-top-nav-single-left">
@@ -537,7 +531,7 @@ export function StudioTrackDetailPage({
             </div>
           </div>
 
-          {/* Right: Status Badge & Action CRUD Buttons */}
+          {/* Right: Status Badge and Action CRUD Buttons */}
           {track ? (
             <div className="studio-top-nav-single-right">
               {/* Status Badge */}
@@ -555,7 +549,7 @@ export function StudioTrackDetailPage({
                   type="button"
                   className="studio-crud-btn"
                   onClick={handleOpenRejectionModal}
-                  title="View moderator rejection reason & feedback"
+                  title="View moderator rejection reason and feedback"
                   style={{
                     backgroundColor: "#fee4e2",
                     color: "#b42318",
@@ -573,7 +567,7 @@ export function StudioTrackDetailPage({
                 className="studio-crud-btn studio-crud-btn-edit"
                 onClick={() => onNavigate(`/studio/tracks/${track.id}/edit`)}
                 disabled={isPending}
-                title={isPending ? "Please withdraw submission before editing" : "Edit track information & synchronized lyrics"}
+                title={isPending ? "Please withdraw submission before editing" : "Edit track information and synchronized lyrics"}
                 style={isPending ? { opacity: 0.6, cursor: "not-allowed" } : undefined}
               >
                 <EditIcon width={13} height={13} />
@@ -673,7 +667,7 @@ export function StudioTrackDetailPage({
               </div>
             </div>
 
-            {/* Hero Card & Integrated Stream Player */}
+            {/* Hero Card and Integrated Stream Player */}
             <div className="staff-inspector-hero-card staff-detail-hero-card">
               <div className="staff-hero-artwork-wrap staff-detail-artwork-wrap">
                 <img
@@ -1021,20 +1015,7 @@ export function StudioTrackDetailPage({
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="edit-track-album">Album (optional)</label>
-                  <select
-                    id="edit-track-album"
-                    value={editAlbumId}
-                    onChange={(e) => setEditAlbumId(e.target.value ? Number(e.target.value) : "")}
-                    disabled={isProcessing}
-                  >
-                    <option value="">None (Single track)</option>
-                    {albums.map((a) => (
-                      <option key={a.id} value={a.id}>
-                        {a.title}
-                      </option>
-                    ))}
-                  </select>
+                  
                 </div>
               </div>
 
@@ -1300,7 +1281,7 @@ export function StudioTrackDetailPage({
                       style={{ marginTop: "3px" }}
                     />
                     <span>
-                      I certify that I hold the copyright or necessary licenses for this audio recording and artwork, and agree to SoundWave community terms.
+                      I certify that I hold the copyright or necessary licenses for this audio recording and artwork, and agree to MagiSound community terms.
                     </span>
                   </label>
                 </div>

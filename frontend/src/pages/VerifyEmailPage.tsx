@@ -93,7 +93,7 @@ export function VerifyEmailPage({ email, onNavigate }: VerifyEmailPageProps) {
           >
             {resending ? "Sending…" : cooldown > 0 ? `Resend OTP (${cooldown}s)` : "Resend OTP"}
           </button>
-          <div className="auth-v2-verification-security"><ShieldIcon width={17} height={17} /><span><b>Keep this code private</b><small>SoundWave staff will never ask for your OTP.</small></span></div>
+          <div className="auth-v2-verification-security"><ShieldIcon width={17} height={17} /><span><b>Keep this code private</b><small>MagiSound staff will never ask for your OTP.</small></span></div>
         </form>
       )}
     </AuthExperience>

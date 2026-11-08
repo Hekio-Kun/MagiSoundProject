@@ -80,7 +80,7 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search tracks, albums, creators..."
+          placeholder="Search tracks, genres, artists..."
           aria-label="Search music"
         />
         {query && (

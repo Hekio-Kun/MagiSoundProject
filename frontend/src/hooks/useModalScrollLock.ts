@@ -13,11 +13,11 @@ const lockedContainers: ScrollContainerRecord[] = [];
 
 /**
  * Custom hook to lock background scrolling when a modal or dialog is open.
- * Strictly adheres to SoundWave Frontend Rule 4.7.
+ * Strictly adheres to MagiSound Frontend Rule 4.7.
  *
  * It locks:
  * 1. `document.body` and `document.documentElement`
- * 2. `.ops-shell-content` (Staff & Admin Operations Dashboard)
+ * 2. `.ops-shell-content` (Staff and Admin Operations Dashboard)
  * 3. `.app-scroll-region` (Client Music Streaming App Shell)
  * 4. Adds CSS class `modal-open` for immediate style-based scroll disabling
  */
@@ -32,7 +32,7 @@ export function useModalScrollLock(isOpen: boolean) {
       document.documentElement.classList.add("modal-open");
       document.body.classList.add("modal-open");
 
-      // Query all known scroll containers in SoundWave
+      // Query all known scroll containers in MagiSound
       const containersToLock: HTMLElement[] = [
         document.documentElement,
         document.body,

@@ -15,9 +15,9 @@ export function Sidebar({ activeRoute, onNavigate, onCreatePlaylist, isAuthentic
   return (
     <aside className="app-sidebar" aria-label="Main navigation">
       <div className="sidebar-brand">
-        <button className="brand" onClick={() => onNavigate("/")} aria-label="Go to SoundWave home">
-          <img className="brand-mark" src="/soundwave-logo.png" alt="SoundWave logo" />
-          <span>SoundWave</span>
+        <button className="brand" onClick={() => onNavigate("/")} aria-label="Go to MagiSound home">
+          <img className="brand-mark" src="/magisound-logo.svg" alt="MagiSound logo" />
+          <span>MagiSound</span>
         </button>
       </div>
 
@@ -133,7 +133,7 @@ export function Sidebar({ activeRoute, onNavigate, onCreatePlaylist, isAuthentic
 
       {!isAuthenticated && (
         <div className="sidebar-guest-card">
-          <p className="guest-card-title">Join SoundWave</p>
+          <p className="guest-card-title">Join MagiSound</p>
           <p className="guest-card-text">Log in to create playlists and upload your own tracks.</p>
           <button className="button button-primary button-small" onClick={() => onNavigate("/login")}>
             Login now

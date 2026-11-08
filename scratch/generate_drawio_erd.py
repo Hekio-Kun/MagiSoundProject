@@ -1,0 +1,344 @@
+import xml.etree.ElementTree as ET
+
+# Create a clean Draw.io XML for MagiSound ERD (adapted from SoundWave ERD, without ALBUM, perfectly balanced)
+xml_content = '''<mxfile host="app.diagrams.net" modified="2026-11-06T02:10:00.000Z" agent="Mozilla/5.0" version="24.7.5">
+  <diagram id="magisound-erd-chen" name="MagiSound_ERD">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1050" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- STYLES -->
+        <!-- ENTITY: Rectangle, bold text -->
+        <!-- WEAK ENTITY: Double rectangle -->
+        <!-- RELATIONSHIP: Diamond, cyan border, bold text -->
+
+        <!-- LEFT COLUMN: STAFF_ROLE, STAFF, NOTIFICATION, USER -->
+        <mxCell id="ent_staff_role" value="STAFF_ROLE" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=13;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_has_role" value="HAS_ROLE" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="155" y="130" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_staff" value="STAFF" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=15;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="100" y="210" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_staff_recv" value="RECEIVES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="155" y="325" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_notification" value="NOTIFICATION" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=13;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="110" y="405" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_user_recv" value="RECEIVES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="155" y="495" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_user" value="USER" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=15;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="100" y="575" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- CENTER COLUMN: 7 ENTITIES (Without Album) -->
+        <!-- 1. TRACK_SUBMISSION -->
+        <mxCell id="ent_submission" value="TRACK_SUBMISSION" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="160" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 2. OFFICIAL_LYRIC -->
+        <mxCell id="ent_off_lyric" value="OFFICIAL_LYRIC" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="270" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 3. FAVORITE (Double border) -->
+        <mxCell id="ent_favorite" value="FAVORITE" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=3;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="380" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 4. PERSONAL_LYRIC -->
+        <mxCell id="ent_pers_lyric" value="PERSONAL_LYRIC" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="490" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 5. PLAYLIST -->
+        <mxCell id="ent_playlist" value="PLAYLIST" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="600" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 6. LISTENING_HISTORY -->
+        <mxCell id="ent_history" value="LISTENING_HISTORY" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="710" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 7. CONTENT_REPORT -->
+        <mxCell id="ent_report" value="CONTENT_REPORT" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="500" y="820" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- RIGHT COLUMN: GENRE & TRACK -->
+        <mxCell id="ent_genre" value="GENRE" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=14;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="930" y="240" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_categorizes" value="CATEGORIZES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="965" y="340" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_track" value="TRACK" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1e293b;strokeWidth=2;fillColor=#ffffff;fontStyle=1;fontSize=18;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="880" y="430" width="200" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- RELATIONSHIP DIAMONDS BETWEEN LEFT AND CENTER -->
+        <!-- Track Submission: Submits (User) & Approves (Staff) -->
+        <mxCell id="rel_submits" value="SUBMITS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_approves" value="APPROVES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="200" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Official Lyric: Maintains (Staff) -->
+        <mxCell id="rel_maintains" value="MAINTAINS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="272" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Favorite: Marks (User) -->
+        <mxCell id="rel_marks" value="MARKS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="382" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Personal Lyric: Writes (User) -->
+        <mxCell id="rel_writes" value="WRITES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="492" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Playlist: Owns (User) -->
+        <mxCell id="rel_owns" value="OWNS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="602" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Listening History: Listens (User) -->
+        <mxCell id="rel_listens" value="LISTENS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="712" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Content Report: Submits (User) & Handles (Staff) -->
+        <mxCell id="rel_rep_submits" value="SUBMITS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="805" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_handles" value="HANDLES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="360" y="870" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- RELATIONSHIP DIAMONDS BETWEEN CENTER AND TRACK -->
+        <mxCell id="rel_sub_has" value="HAS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="162" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_off_has" value="HAS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="272" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_fav_includes" value="INCLUDES" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="382" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_pers_has" value="HAS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="492" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_play_contains" value="CONTAINS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="602" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_hist_records" value="RECORDS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="712" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_rep_concerns" value="CONCERNS" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#0284c7;strokeWidth=1.5;fillColor=#f0f9ff;fontStyle=1;fontSize=10;fontColor=#0284c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="740" y="822" width="90" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES / CONNECTORS (Crow Foot style notation) -->
+        <!-- Staff_Role - Staff -->
+        <mxCell id="e1" edge="1" parent="1" source="ent_staff_role" target="rel_has_role" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="rel_has_role" target="ent_staff" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Staff - Notification -->
+        <mxCell id="e3" edge="1" parent="1" source="ent_staff" target="rel_staff_recv" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="rel_staff_recv" target="ent_notification" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Notification -->
+        <mxCell id="e5" edge="1" parent="1" source="ent_user" target="rel_user_recv" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="rel_user_recv" target="ent_notification" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Submits - Submission -->
+        <mxCell id="e7" edge="1" parent="1" source="ent_user" target="rel_submits" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="rel_submits" target="ent_submission" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Staff - Approves - Submission -->
+        <mxCell id="e9" edge="1" parent="1" source="ent_staff" target="rel_approves" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="rel_approves" target="ent_submission" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Staff - Maintains - Official Lyric -->
+        <mxCell id="e11" edge="1" parent="1" source="ent_staff" target="rel_maintains" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="rel_maintains" target="ent_off_lyric" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Marks - Favorite -->
+        <mxCell id="e13" edge="1" parent="1" source="ent_user" target="rel_marks" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="rel_marks" target="ent_favorite" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Writes - Personal Lyric -->
+        <mxCell id="e15" edge="1" parent="1" source="ent_user" target="rel_writes" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="rel_writes" target="ent_pers_lyric" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Owns - Playlist -->
+        <mxCell id="e17" edge="1" parent="1" source="ent_user" target="rel_owns" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="rel_owns" target="ent_playlist" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Listens - History -->
+        <mxCell id="e19" edge="1" parent="1" source="ent_user" target="rel_listens" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="rel_listens" target="ent_history" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User - Submits - Content Report -->
+        <mxCell id="e21" edge="1" parent="1" source="ent_user" target="rel_rep_submits" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="rel_rep_submits" target="ent_report" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Staff - Handles - Content Report -->
+        <mxCell id="e23" edge="1" parent="1" source="ent_staff" target="rel_handles" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="40" y="250" />
+              <mxPoint x="40" y="895" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="rel_handles" target="ent_report" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Track connections to center entities -->
+        <!-- Submission - Has - Track -->
+        <mxCell id="e25" edge="1" parent="1" source="ent_submission" target="rel_sub_has" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" edge="1" parent="1" source="rel_sub_has" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Official Lyric - Has - Track -->
+        <mxCell id="e27" edge="1" parent="1" source="ent_off_lyric" target="rel_off_has" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="rel_off_has" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Favorite - Includes - Track -->
+        <mxCell id="e29" edge="1" parent="1" source="ent_favorite" target="rel_fav_includes" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" source="rel_fav_includes" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Personal Lyric - Has - Track -->
+        <mxCell id="e31" edge="1" parent="1" source="ent_pers_lyric" target="rel_pers_has" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" edge="1" parent="1" source="rel_pers_has" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Playlist - Contains - Track -->
+        <mxCell id="e33" edge="1" parent="1" source="ent_playlist" target="rel_play_contains" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" source="rel_play_contains" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- History - Records - Track -->
+        <mxCell id="e35" edge="1" parent="1" source="ent_history" target="rel_hist_records" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e36" edge="1" parent="1" source="rel_hist_records" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Content Report - Concerns - Track -->
+        <mxCell id="e37" edge="1" parent="1" source="ent_report" target="rel_rep_concerns" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e38" edge="1" parent="1" source="rel_rep_concerns" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Genre - Categorizes - Track -->
+        <mxCell id="e39" edge="1" parent="1" source="ent_genre" target="rel_categorizes" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e40" edge="1" parent="1" source="rel_categorizes" target="ent_track" style="endArrow=ERmany;html=1;strokeColor=#334155;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+'''
+
+output_path = "docs/diagrams/MagiSound_ERD_Chen_CrowsFoot.drawio"
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(xml_content.strip())
+
+print(f"Generated Draw.io file successfully at: {output_path}")

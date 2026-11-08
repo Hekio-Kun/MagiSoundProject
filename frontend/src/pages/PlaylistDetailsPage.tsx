@@ -518,7 +518,7 @@ export function PlaylistDetailsPage({
             <HeadphonesIcon width={36} height={36} />
             <strong style={{ fontSize: "16px", color: "var(--sw-text)" }}>This playlist is empty</strong>
             <span style={{ fontSize: "13px", color: "var(--sw-muted)" }}>
-              Add tracks from the SoundWave catalog to build your custom playlist.
+              Add tracks from the MagiSound catalog to build your custom playlist.
             </span>
             {isOwner && (
               <button
@@ -595,7 +595,7 @@ export function PlaylistDetailsPage({
                     {String(idx + 1).padStart(2, "0")}
                   </span>
 
-                  {/* Thumbnail & Play button */}
+                  {/* Thumbnail and Play button */}
                   <div
                     style={{ position: "relative", width: "44px", height: "44px", borderRadius: "8px", overflow: "hidden", cursor: "pointer" }}
                     onClick={() => onPlayTrack(track, playlistTracks, `Playlist • ${playlist.title}`, `playlist-${playlist.id}`)}
@@ -992,7 +992,7 @@ export function PlaylistDetailsPage({
                   <strong style={{ display: "block", color: "#14532d", marginBottom: "3px" }}>
                     Public Catalog Release
                   </strong>
-                  This track is live and streaming on SoundWave. Total Plays: <b>{selectedDetailTrack.playCount.toLocaleString()}</b>.
+                  This track is live and streaming on MagiSound. Total Plays: <b>{selectedDetailTrack.playCount.toLocaleString()}</b>.
                 </div>
               </div>
 

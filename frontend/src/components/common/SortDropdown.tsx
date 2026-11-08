@@ -24,7 +24,7 @@ const DEFAULT_OPTIONS: SortOption[] = [
   {
     value: "trending",
     label: "Most played",
-    hint: "Top plays & trending",
+    hint: "Top plays and trending",
     icon: <TrendingUpIcon width={15} height={15} />,
     badgeBg: "#FFF1F2",
     badgeColor: "#E11D48",

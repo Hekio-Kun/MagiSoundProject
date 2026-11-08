@@ -58,7 +58,7 @@ export function CreatorProfilePage({ creatorId, currentTrack, playing, onPlayTra
       // 3. Mock featuredCreators
       const mockCreator = featuredCreators.find((c) => c.userId === creatorId);
 
-      // 4. Fetch tracks to get actual uploaded tracks & creator metadata
+      // 4. Fetch tracks to get actual uploaded tracks and creator metadata
       let tracksList: LandingTrack[] = [];
       let creatorFromTracks: { displayName: string; avatarUrl: string | null } | null = null;
       try {

@@ -42,12 +42,6 @@ export type GenreOption = {
   description?: string;
 };
 
-export type AlbumOption = {
-  id: number;
-  title: string;
-  slug: string;
-};
-
 export type RejectionHistoryItem = {
   submissionId: number;
   status: string;
@@ -70,8 +64,7 @@ export type RejectionDetails = {
 export type CreateTrackPayload = {
   title: string;
   genreId: number;
-  albumId?: number;
-  trackNumber?: number;
+trackNumber?: number;
   description?: string;
   durationMs?: number;
   lyrics?: string;
@@ -80,8 +73,7 @@ export type CreateTrackPayload = {
 export type UpdateTrackPayload = {
   title: string;
   genreId: number;
-  albumId?: number;
-  trackNumber?: number;
+trackNumber?: number;
   description?: string;
   durationMs?: number;
   lyrics?: string;
@@ -161,6 +153,4 @@ export const studioApi = {
     studioRequest<StudioStats>("/studio/stats"),
   getGenres: () =>
     studioRequest<GenreOption[]>("/studio/genres"),
-  getMyAlbums: () =>
-    studioRequest<AlbumOption[]>("/studio/albums"),
 };

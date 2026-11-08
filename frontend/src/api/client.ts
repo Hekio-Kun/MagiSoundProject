@@ -4,9 +4,9 @@ export const getApiBaseUrl = (): string => {
   }
   if (typeof window !== "undefined") {
     const host = window.location.hostname || "localhost";
-    return `http://${host}:8080/api/v1`;
+    return `http://${host}:8088/api/v1`;
   }
-  return "http://localhost:8080/api/v1";
+  return "http://localhost:8088/api/v1";
 };
 
 export const API_BASE_URL = getApiBaseUrl();
@@ -128,7 +128,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     if (error instanceof TypeError && (error.message.includes("fetch") || error.message.includes("network") || error.message.includes("Failed"))) {
       throw new ApiError(
         0,
-        "Không thể kết nối đến máy chủ backend (Port 8080) hoặc kết nối bị ngắt quãng. Vui lòng đảm bảo Spring Boot backend đang chạy và file không vượt quá dung lượng cho phép.",
+        "Không thể kết nối đến máy chủ backend (Port 8088) hoặc kết nối bị ngắt quãng. Vui lòng đảm bảo Spring Boot backend đang chạy và file không vượt quá dung lượng cho phép.",
         "CONNECTION_ERROR"
       );
     }
@@ -144,7 +144,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
         if (retryError instanceof TypeError && (retryError.message.includes("fetch") || retryError.message.includes("network") || retryError.message.includes("Failed"))) {
           throw new ApiError(
             0,
-            "Không thể kết nối đến máy chủ backend (Port 8080).",
+            "Không thể kết nối đến máy chủ backend (Port 8088).",
             "CONNECTION_ERROR"
           );
         }
@@ -155,3 +155,4 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
 
   return parseResponse<T>(response);
 }
+

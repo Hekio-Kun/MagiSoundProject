@@ -51,13 +51,13 @@ export function DashboardLayout({ children, activeRoute, user, onNavigate, onLog
       <div className="ops-sidebar-header">
         <div
           className="ops-shell-brand"
-          aria-label={isAdmin ? "SoundWave administration workspace" : "SoundWave moderation workspace"}
+          aria-label={isAdmin ? "MagiSound administration workspace" : "MagiSound moderation workspace"}
         >
           <div className="ops-brand-logo-wrap">
-            <img src="/soundwave-logo.png" alt="SoundWave" />
+            <img src="/magisound-logo.svg" alt="MagiSound" />
           </div>
           <div className="ops-brand-info">
-            <span className="ops-brand-name">SoundWave</span>
+            <span className="ops-brand-name">MagiSound</span>
             <span className="ops-brand-badge">{isAdmin ? "ADMINISTRATION" : "MODERATION"}</span>
           </div>
         </div>
@@ -135,7 +135,7 @@ export function DashboardLayout({ children, activeRoute, user, onNavigate, onLog
         )}
       </nav>
 
-      {/* Sidebar Footer User Card & Logout */}
+      {/* Sidebar Footer User Card and Logout */}
       <div className="ops-shell-sidebar-footer">
         {user ? (
           <div className="ops-sidebar-user-card">
@@ -161,7 +161,7 @@ export function DashboardLayout({ children, activeRoute, user, onNavigate, onLog
           type="button"
           className="ops-sidebar-logout-btn"
           onClick={onLogout}
-          title="Log out of SoundWave"
+          title="Log out of MagiSound"
         >
           <LogoutIcon width={15} height={15} />
           <span>Sign Out</span>
@@ -177,7 +177,7 @@ export function DashboardLayout({ children, activeRoute, user, onNavigate, onLog
         {renderSidebarContent()}
       </aside>
 
-      {/* Mobile Drawer Backdrop & Sidebar */}
+      {/* Mobile Drawer Backdrop and Sidebar */}
       {mobileDrawerOpen ? (
         <div
           className="ops-drawer-overlay"
@@ -213,7 +213,7 @@ export function DashboardLayout({ children, activeRoute, user, onNavigate, onLog
             </button>
 
             <div className="ops-shell-breadcrumb">
-              <span className="ops-breadcrumb-root">SoundWave</span>
+              <span className="ops-breadcrumb-root">MagiSound</span>
               <span className="ops-breadcrumb-sep">/</span>
               <strong className="ops-breadcrumb-current">
                 {isAdmin ? "Admin" : "Moderation"}

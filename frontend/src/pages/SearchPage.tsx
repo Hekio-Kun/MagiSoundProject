@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { AlbumCard, CreatorCard, TrackCard } from "../components/common/MusicCards";
-import { albums, featuredCreators, tracks } from "../data";
+import { CreatorCard, TrackCard } from "../components/common/MusicCards";
+import { featuredCreators, tracks } from "../data";
 import { catalogApi } from "../api/catalog";
 import { CloseIcon, CompassIcon, SearchIcon, TrendingUpIcon } from "../icons";
 import type { LandingTrack } from "../types";
@@ -15,7 +15,7 @@ type Props = {
 
 export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, initialQuery = "" }: Props) {
   const [searchTerm, setSearchTerm] = useState(initialQuery);
-  const [activeFilter, setActiveFilter] = useState<"all" | "tracks" | "albums" | "creators">("all");
+  const [activeFilter, setActiveFilter] = useState<"all" | "tracks" | "" | "creators">("all");
   const [serverTracks, setServerTracks] = useState<LandingTrack[]>([]);
 
   useEffect(() => {
@@ -50,12 +50,7 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
     );
   }, [allSearchableTracks, query]);
 
-  const matchedAlbums = useMemo(() => {
-    if (!query) return [];
-    return albums.filter(
-      (a) => a.title.toLowerCase().includes(query) || a.creatorName.toLowerCase().includes(query)
-    );
-  }, [query]);
+
 
   const matchedCreators = useMemo(() => {
     if (!query) return [];
@@ -64,9 +59,9 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
     );
   }, [query]);
 
-  const hasResults = matchedTracks.length > 0 || matchedAlbums.length > 0 || matchedCreators.length > 0;
-  const resultCount = matchedTracks.length + matchedAlbums.length + matchedCreators.length;
-  const quickSearches = ["Minh An", "Mưa", "Biển", "Acoustic"];
+  const hasResults = matchedTracks.length > 0 || matchedCreators.length > 0;
+  const resultCount = matchedTracks.length + matchedCreators.length;
+  const quickSearches = ["Sơn Tùng M-TP", "HIEUTHUHAI", "MCK", "YOASOBI", "Pop", "Acoustic"];
 
   return (
     <div className="search-page">
@@ -74,7 +69,7 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
         <div className="search-hero-copy">
           <span className="search-kicker"><CompassIcon width={15} height={15} /> DISCOVER THE CATALOG</span>
           <h1>Find your next <span>favorite sound.</span></h1>
-          <p>Search public tracks, albums and Vietnamese creators in one place.</p>
+          <p>Search public tracks and Vietnamese creators in one place.</p>
         </div>
         <div className="search-input-panel">
           <label htmlFor="catalog-search">What do you want to listen to?</label>
@@ -85,7 +80,7 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
               type="search"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Track, album or creator..."
+              placeholder="Track or creator..."
               autoFocus
               autoComplete="off"
             />
@@ -119,14 +114,6 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
             Tracks <span>{matchedTracks.length}</span>
           </button>
           <button
-            className={`search-tab-pill ${activeFilter === "albums" ? "search-tab-pill--active" : ""}`}
-            onClick={() => setActiveFilter("albums")}
-            role="tab"
-            aria-selected={activeFilter === "albums"}
-          >
-            Albums <span>{matchedAlbums.length}</span>
-          </button>
-          <button
             className={`search-tab-pill ${activeFilter === "creators" ? "search-tab-pill--active" : ""}`}
             onClick={() => setActiveFilter("creators")}
             role="tab"
@@ -141,8 +128,8 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
       {!query ? (
         <div className="search-prompt-state">
           <span className="search-prompt-icon"><TrendingUpIcon width={25} height={25} /></span>
-          <div><span className="search-prompt-label">TRENDING SEARCH</span><h2>Start with what listeners love today</h2><p>Use a title, creator name or album to explore the public catalog.</p></div>
-          <button onClick={() => setSearchTerm("Minh An")}>Explore Minh An</button>
+          <div><span className="search-prompt-label">TRENDING SEARCH</span><h2>Start with what listeners love today</h2><p>Use a title or creator name to explore the public catalog.</p></div>
+          <button onClick={() => setSearchTerm("Sơn Tùng M-TP")}>Explore Sơn Tùng M-TP</button>
         </div>
       ) : !hasResults ? (
         <div className="state-empty-box">
@@ -173,15 +160,6 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
                     onNavigate={onNavigate}
                   />
                 ))}
-              </div>
-            </section>
-          )}
-
-          {(activeFilter === "all" || activeFilter === "albums") && matchedAlbums.length > 0 && (
-            <section className="search-result-section">
-              <div className="search-section-heading"><div><span>COLLECTIONS</span><h2>Matching albums</h2></div><small>{matchedAlbums.length} found</small></div>
-              <div className="sw-album-grid">
-                {matchedAlbums.map((album) => <AlbumCard key={album.id} album={album} onNavigate={onNavigate} />)}
               </div>
             </section>
           )}

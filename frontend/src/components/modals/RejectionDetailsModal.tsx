@@ -157,7 +157,7 @@ export function RejectionDetailsModal({
           </button>
         </div>
 
-        {/* Thông tin bài hát & trạng thái */}
+        {/* Thông tin bài hát and trạng thái */}
         <div
           style={{
             backgroundColor: "#f8fafc",

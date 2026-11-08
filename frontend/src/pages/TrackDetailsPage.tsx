@@ -171,7 +171,7 @@ export function TrackDetailsPage({
     <div className="track-page-v2">
       <nav className="track-breadcrumb" aria-label="Breadcrumb">
         <button onClick={() => onNavigate("/")}>Explore</button><span>/</span>
-        <button onClick={() => goToCreatorProfile(creatorId)}>{track.creator?.displayName ?? "Unknown Creator"}</button>
+        <button onClick={() => goToCreatorProfile(creatorId)}>{track.creator?.displayName || "Artist"}</button>
         <span>/</span><b>{track.title}</b>
       </nav>
 
@@ -190,7 +190,7 @@ export function TrackDetailsPage({
           <p className="track-intro">{track.description?.trim() || "No description has been provided for this track."}</p>
           <button className="track-creator-chip" onClick={() => goToCreatorProfile(creatorId)}>
             {track.creator?.avatarUrl ? <img src={track.creator.avatarUrl} alt="" /> : <span className="track-avatar-fallback" aria-hidden="true"><UserIcon width={18} height={18} /></span>}
-            <span><small>Uploaded by</small><strong>{track.creator?.displayName ?? "Unknown Creator"}</strong></span>
+            <span><small>Uploaded by</small><strong>{track.creator?.displayName || "Artist"}</strong></span>
           </button>
           <div className="track-stat-row">
             <span><HeadphonesIcon width={16} height={16} /><b>{formatPlays(track.playCount)}</b><small>plays</small></span><i />
@@ -221,7 +221,7 @@ export function TrackDetailsPage({
           <section className="track-context-card">
             <span className="context-eyebrow">RELEASE INFORMATION</span>
             <dl>
-              <div><dt>Album</dt><dd>{track.album ? <button onClick={() => onNavigate(`/album/${track.album!.id}`)}>{track.album.title}</button> : "Single"}</dd></div>
+              
               <div><dt>Genre</dt><dd>{genreLabel}</dd></div>
               <div><dt>Published</dt><dd>{formatReleaseDate(track.createdAt)}</dd></div>
               <div><dt>Status</dt><dd><span className="context-status"><CheckIcon width={12} height={12} /> {publicationLabel}</span></dd></div>
@@ -230,7 +230,7 @@ export function TrackDetailsPage({
           <section className="track-author-card">
             {track.creator?.avatarUrl ? <img src={track.creator.avatarUrl} alt="" /> : null}
             <span className="track-section-icon"><UserIcon width={18} height={18} /></span><small>CREATOR</small>
-            <h3>{track.creator?.displayName ?? "Unknown Creator"}</h3><p>Explore more music and albums from this creator.</p>
+            <h3>{track.creator?.displayName || "Artist"}</h3><p>Explore more music and albums from this creator.</p>
             <button onClick={() => goToCreatorProfile(creatorId)}>View profile</button>
           </section>
           <p className="track-report-unavailable">Track reporting is not available in this release.</p>

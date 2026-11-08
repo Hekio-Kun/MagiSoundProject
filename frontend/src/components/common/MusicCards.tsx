@@ -1,4 +1,4 @@
-import type { FeaturedAlbum, FeaturedCreator, LandingTrack } from "../../types";
+import type { FeaturedCreator, LandingTrack } from "../../types";
 import { ArrowIcon, HeadphonesIcon, PauseIcon, PlayIcon } from "../../icons";
 
 const compactNumber = (value: number) =>
@@ -24,25 +24,13 @@ export function TrackCard({ track, active, playing, onPlay, onNavigate, rank }: 
       </button>
       <div className="sw-card-copy">
         <a href={`#/track/${track.id}`} className="sw-card-title" onClick={(event) => { event.preventDefault(); onNavigate(`/track/${track.id}`); }}>{track.title}</a>
-        <a href={`#/creator/${track.creator.userId}`} className="sw-card-subtitle" onClick={(event) => { event.preventDefault(); onNavigate(`/creator/${track.creator.userId}`); }}>{track.creator.displayName}</a>
+        <a href={`#/creator/${track.creator?.userId}`} className="sw-card-subtitle" onClick={(event) => { event.preventDefault(); if (track.creator?.userId) onNavigate(`/creator/${track.creator.userId}`); }}>{track.creator?.displayName || "Artist"}</a>
         <span className="sw-card-meta"><HeadphonesIcon width={13} height={13} /> {compactNumber(track.playCount)} plays</span>
       </div>
     </article>
   );
 }
 
-export function AlbumCard({ album, onNavigate }: { album: FeaturedAlbum; onNavigate: (route: string) => void }) {
-  return (
-    <article className="sw-album-card">
-      <button className="sw-album-art" onClick={() => onNavigate(`/album/${album.id}`)} aria-label={`Open album ${album.title}`}>
-        <img src={album.coverUrl} alt="" loading="lazy" />
-        <span className="sw-track-play"><PlayIcon width={19} height={19} /></span>
-      </button>
-      <a href={`#/album/${album.id}`} className="sw-card-title" onClick={(event) => { event.preventDefault(); onNavigate(`/album/${album.id}`); }}>{album.title}</a>
-      <span className="sw-card-subtitle">{album.creatorName} · {album.releaseYear}</span>
-    </article>
-  );
-}
 
 export function CreatorCard({ creator, onNavigate }: { creator: FeaturedCreator; onNavigate: (route: string) => void }) {
   return (

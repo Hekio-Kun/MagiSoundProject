@@ -1,0 +1,70 @@
+
+
+III.2 State diagram 
+[Provide the State diagram(s) for the feature, see the sample below]
+
+IV. Design specification
+IV.1 Integrated Communication Diagrams 
+Sample
+
+IV.2 System High-Level Design
+Sample
+
+
+IV.3 Component and Package Diagram
+IV.3.1 Component Diagram
+Sample
+
+IV.3.1 . Package Diagram
+[Provide the package diagram for each sub-system. The content of this section including the overall package diagram, the explanation, package and class naming conventions in each package. Please see the sample & description table format below (please note: package names don’t follow Java package naming convention yet)]
+
+Package descriptions
+[TABLE]
+
+
+
+IV.4 Class diagram 
+[This part presents the class diagram for the relevant feature]
+
+IV.5 Database Design
+[Provide the tables relationship like example below – following MySQL database naming convention]
+
+V. Implementation 
+V.1 Map architecture to the structure of the project 
+[Provide: 
+Overview of the Chosen Architecture
+Briefly describe the architectural style (e.g., Layered, MVC, Service-Oriented Architecture)
+Explain why it was selected for this project (e.g., to meet non-functional requirements like maintainability, scalability, reusability)
+Mapping to Project Structure
+Present the actual project folder/package structure
+Map each layer/component in the architecture to concrete project modules]
+
+V.2 Map Class Diagram and Interaction Diagram to Code
+[Demo the implementation of several features using design patterns]
+VI. Applying Alternative Architecture Patterns
+VI.1 Applying the ………….. (ex: Service-Oriented Architecture (SOA))  architecture
+[Redesign part of the system architecture using Service-Oriented Architecture (SOA) to improve reusability, scalability, and modularity.
+Students must provide:
+Problem Identification
+Briefly describe which non-functional requirement(s) are not fully supported by the current architecture (e.g., NF-05: Reusability)
+SOA-Based Solution
+Reorganize system components into independent services
+E.g., refactor FSOData into separate service modules
+Supporting Diagrams
+Deployment Diagram
+Updated Class Diagram
+Component Diagram showing separate services]
+
+VI.2 Applying Service Discovery Pattern in the service-oriented architecture 
+[Support dynamic service registration and discovery in SOA or microservice-based architecture for horizontal scalability and ease of expansion.
+ Students must provide:
+Problem & Requirement
+Explain the relevant non-functional requirement (e.g., NF-06: Scalability)
+Describe the need for service discovery in a growing system (e.g., multiple branches, independent modules)
+Service Discovery-Based Solution
+Integrate a Service Discovery Pattern
+Mention possible technologies: Consul, Eureka, Kubernetes DNS
+Supporting Diagrams
+Deployment Diagram (with multiple instances and registry)
+Updated Class/Component Diagram including a Discovery Service]
+

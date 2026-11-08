@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram name="Context Diagram (DFD Level 0)" id="diag_context_dfd0">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="sys_0" value="0.0&#10;&#10;MagiSound Music Streaming System" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;fillColor=#f8f9fa;strokeColor=#1a1a1a;strokeWidth=2.5;fontStyle=1;fontSize=16;fontColor=#1a1a1a;" vertex="1" parent="1">
+          <mxGeometry x="960" y="620" width="320" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="ent_guest" value="Guest" style="shape=rect;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#1a1a1a;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="160" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="ent_user" value="User" style="shape=rect;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#1a1a1a;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="800" width="160" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="ent_staff" value="Staff" style="shape=rect;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#1a1a1a;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="160" width="160" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="ent_admin" value="Admin" style="shape=rect;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#1a1a1a;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="800" width="160" height="280" as="geometry"/>
+        </mxCell>
+        <mxCell id="ent_email" value="Email Service&#10;(External Entity)" style="shape=rect;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#1a1a1a;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="960" y="60" width="320" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ent_cloud" value="Cloud Storage&#10;(External Entity)" style="shape=rect;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#1a1a1a;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="960" y="1280" width="320" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_in_1" value="Registration Details" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.15;exitDx=0;exitDy=0;entryX=0.0;entryY=0.10;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_guest" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_in_2" value="Verification Token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.30;exitDx=0;exitDy=0;entryX=0.0;entryY=0.20;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_guest" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_in_3" value="Search Keyword and Filter" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.45;exitDx=0;exitDy=0;entryX=0.0;entryY=0.30;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_guest" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_in_4" value="Playback and Detail Request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.60;exitDx=0;exitDy=0;entryX=0.0;entryY=0.40;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_guest" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_out_1" value="Registration Status" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.50;exitDx=0;exitDy=0;entryX=1.0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_guest">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_out_2" value="Public Song Catalog" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.55;exitDx=0;exitDy=0;entryX=1.0;entryY=0.85;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_guest">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="g_out_3" value="Audio Stream and Lyrics" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.60;exitDx=0;exitDy=0;entryX=1.0;entryY=0.95;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_guest">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_in_1" value="Login Credentials" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.10;exitDx=0;exitDy=0;entryX=0.0;entryY=0.68;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_in_2" value="Password Reset Request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.22;exitDx=0;exitDy=0;entryX=0.0;entryY=0.74;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_in_3" value="Profile Updates" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.34;exitDx=0;exitDy=0;entryX=0.0;entryY=0.80;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_in_4" value="Playlist and Favorite Operations" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.46;exitDx=0;exitDy=0;entryX=0.0;entryY=0.86;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_in_5" value="Audio File and Track Metadata" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.58;exitDx=0;exitDy=0;entryX=0.0;entryY=0.92;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_in_6" value="Content Violation Report" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.70;exitDx=0;exitDy=0;entryX=0.0;entryY=0.98;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_out_1" value="Authentication Token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.05;exitY=1.0;exitDx=0;exitDy=0;entryX=1.0;entryY=0.82;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_out_2" value="Profile and Playlist Data" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.15;exitY=1.0;exitDx=0;exitDy=0;entryX=1.0;entryY=0.88;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_out_3" value="Track Review Status and Reason" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.25;exitY=1.0;exitDx=0;exitDy=0;entryX=1.0;entryY=0.94;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_out_4" value="Report Resolution Notice" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.35;exitY=1.0;exitDx=0;exitDy=0;entryX=1.0;entryY=1.00;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_in_1" value="Track Moderation Decision" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.20;exitDx=0;exitDy=0;entryX=1.0;entryY=0.15;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_in_2" value="Report Resolution Decision" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.40;exitDx=0;exitDy=0;entryX=1.0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_in_3" value="Track Takedown Command" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.60;exitDx=0;exitDy=0;entryX=1.0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_staff" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_out_1" value="Pending Tracks Queue and Audio" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.45;exitDx=0;exitDy=0;entryX=0.0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_staff">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_out_2" value="Pending Reports Queue" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.55;exitDx=0;exitDy=0;entryX=0.0;entryY=0.85;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_staff">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_out_3" value="Moderation Action Feedback" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.65;exitDx=0;exitDy=0;entryX=0.0;entryY=0.95;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_staff">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_in_1" value="Staff Account Information" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.15;exitDx=0;exitDy=0;entryX=1.0;entryY=0.72;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_admin" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_in_2" value="Genre Management Data" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.35;exitDx=0;exitDy=0;entryX=1.0;entryY=0.82;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_admin" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_in_3" value="Statistics Query Parameters" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.0;exitY=0.55;exitDx=0;exitDy=0;entryX=1.0;entryY=0.92;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_admin" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_out_1" value="Staff Directory and Logs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.95;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.70;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_out_2" value="Genre Catalog List" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.85;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.82;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_out_3" value="System Statistics Report" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.75;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.94;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_out_1" value="Verification Email Request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.15;exitY=0.0;exitDx=0;exitDy=0;entryX=0.15;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_email">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_out_2" value="Password Reset Email Request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.35;exitY=0.0;exitDx=0;exitDy=0;entryX=0.35;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_email">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_out_3" value="Staff Credentials Email Request" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.55;exitY=0.0;exitDx=0;exitDy=0;entryX=0.55;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_email">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_in_1" value="Email Delivery Status Response" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.85;exitY=1.0;exitDx=0;exitDy=0;entryX=0.85;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_email" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_out_1" value="Audio and Image File Upload" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.25;exitY=1.0;exitDx=0;exitDy=0;entryX=0.25;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sys_0" target="ent_cloud">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_in_1" value="Stored Media Public URL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.60;exitY=0.0;exitDx=0;exitDy=0;entryX=0.60;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_cloud" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_in_2" value="Audio Streaming Byte Chunks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1a1a1a;strokeWidth=1.5;fontSize=11;fontColor=#111111;labelBackgroundColor=#ffffff;exitX=0.85;exitY=0.0;exitDx=0;exitDy=0;entryX=0.85;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_cloud" target="sys_0">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

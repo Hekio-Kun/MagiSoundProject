@@ -4,7 +4,7 @@ import { useModalScrollLock } from "../hooks/useModalScrollLock";
 import {
   studioApi,
   TrackApiError,
-  type AlbumOption,
+  
   type ApiTrack,
   type GenreOption,
 } from "../api/track";
@@ -48,13 +48,11 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
   const [existingCoverName, setExistingCoverName] = useState<string>("");
 
   const [genres, setGenres] = useState<GenreOption[]>([]);
-  const [albums, setAlbums] = useState<AlbumOption[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(false);
   const [optionsError, setOptionsError] = useState("");
 
   const [title, setTitle] = useState("");
   const [genreId, setGenreId] = useState<number>(0);
-  const [albumId, setAlbumId] = useState<number | "">("");
   const [description, setDescription] = useState("");
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
@@ -88,12 +86,9 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
     setLoadingOptions(true);
     setOptionsError("");
     try {
-      const [fetchedGenres, fetchedAlbums] = await Promise.all([
-        studioApi.getGenres(),
-        studioApi.getMyAlbums(),
-      ]);
+      const fetchedGenres = await studioApi.getGenres();
       setGenres(fetchedGenres);
-      setAlbums(fetchedAlbums);
+      
       if (!isEditMode) {
         setGenreId((current) => current || fetchedGenres[0]?.id || 0);
       }
@@ -123,7 +118,6 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
         setExistingTrack(data);
         setTitle(data.title || "");
         setGenreId(data.genreId || 0);
-        setAlbumId(data.albumId ?? "");
         setDescription(data.description || "");
         setLyrics(data.lyrics || "");
         setDurationMs(data.durationMs);
@@ -271,7 +265,6 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
           {
             title: title.trim(),
             genreId,
-            albumId: albumId === "" ? undefined : Number(albumId),
             description: description.trim() || undefined,
             durationMs,
             lyrics: lyrics.trim() || undefined,
@@ -284,7 +277,6 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
         const created = await studioApi.createDraft({
           title: title.trim(),
           genreId,
-          albumId: albumId === "" ? undefined : Number(albumId),
           description: description.trim() || undefined,
           durationMs,
           lyrics: lyrics.trim() || undefined,
@@ -351,7 +343,6 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
     }
     setTitle("");
     setGenreId(genres[0]?.id ?? 0);
-    setAlbumId("");
     setDescription("");
     setAudioFile(null);
     setCoverFile(null);
@@ -549,11 +540,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
               {formErrors.genre && <small className="auth-v2-field-error"><AlertIcon width={12} height={12} />{formErrors.genre}</small>}
             </div>
             <div className="form-group">
-              <label htmlFor="upload-track-album">Album <span>(optional)</span></label>
-              <select id="upload-track-album" value={albumId} disabled={submitting || loadingOptions} onChange={(event) => setAlbumId(event.target.value ? Number(event.target.value) : "")}>
-                <option value="">None (single track)</option>
-                {albums.map((album) => <option key={album.id} value={album.id}>{album.title}</option>)}
-              </select>
+              
             </div>
           </div>
 
@@ -708,7 +695,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
               onClick={handleStartSubmitReview}
               id="btn-upload-submit-review"
             >
-              <UploadIcon width={17} height={17} /> {submitting ? "Saving..." : isEditMode ? "Save & submit for review" : "Submit for review"}
+              <UploadIcon width={17} height={17} /> {submitting ? "Saving..." : isEditMode ? "Save and submit for review" : "Submit for review"}
             </button>
           </div>
         </form>
@@ -720,7 +707,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
             <ul>
               <li><CheckIcon width={16} height={16} /><span>You own the audio or have permission to publish it.</span></li>
               <li><CheckIcon width={16} height={16} /><span>The audio is MP3, WAV or FLAC and no larger than 30MB.</span></li>
-              <li><CheckIcon width={16} height={16} /><span>The title, genre and optional album details are accurate.</span></li>
+              <li><CheckIcon width={16} height={16} /><span>The title and genre details are accurate.</span></li>
             </ul>
           </section>
           <section className="upload-track-sidebar__note">
@@ -763,7 +750,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
                   style={{ marginTop: "3px" }}
                 />
                 <span>
-                  I confirm that I own all rights to this audio and artwork, or hold legal authorization to publish it, and agree to SoundWave Community Guidelines.
+                  I confirm that I own all rights to this audio and artwork, or hold legal authorization to publish it, and agree to MagiSound Community Guidelines.
                 </span>
               </label>
             </div>
@@ -777,7 +764,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
                 onClick={() => void handleConfirmSubmitReview()}
                 id="btn-confirm-agree-submit"
               >
-                {submitting ? "Submitting..." : "Agree & Submit"}
+                {submitting ? "Submitting..." : "Agree and Submit"}
               </button>
             </div>
           </div>

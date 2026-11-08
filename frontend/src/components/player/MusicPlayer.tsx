@@ -72,7 +72,7 @@ export function MusicPlayer({
   const [volume, setVolume] = useState(() => (Number.isFinite(audio?.volume) ? audio.volume : 0.8));
   const [shuffle, setShuffle] = useState(() => {
     try {
-      return sessionStorage.getItem("soundwave_player_shuffle") === "true";
+      return sessionStorage.getItem("magisound_player_shuffle") === "true";
     } catch {
       return false;
     }
@@ -80,8 +80,8 @@ export function MusicPlayer({
   const [repeat, setRepeat] = useState(() => {
     try {
       // Prevent both shuffle and repeat being active simultaneously from stored session
-      const savedShuffle = sessionStorage.getItem("soundwave_player_shuffle") === "true";
-      const savedRepeat = sessionStorage.getItem("soundwave_player_repeat") === "true";
+      const savedShuffle = sessionStorage.getItem("magisound_player_shuffle") === "true";
+      const savedRepeat = sessionStorage.getItem("magisound_player_repeat") === "true";
       return savedRepeat && !savedShuffle;
     } catch {
       return false;
@@ -99,7 +99,7 @@ export function MusicPlayer({
   // NF03: Persist shuffle preference to sessionStorage
   useEffect(() => {
     try {
-      sessionStorage.setItem("soundwave_player_shuffle", String(shuffle));
+      sessionStorage.setItem("magisound_player_shuffle", String(shuffle));
     } catch {
       // ignore
     }
@@ -108,7 +108,7 @@ export function MusicPlayer({
   // NF03: Persist repeat preference to sessionStorage
   useEffect(() => {
     try {
-      sessionStorage.setItem("soundwave_player_repeat", String(repeat));
+      sessionStorage.setItem("magisound_player_repeat", String(repeat));
     } catch {
       // ignore
     }
@@ -251,12 +251,12 @@ export function MusicPlayer({
   };
 
   /**
-   * Seeks audio to target timestamp, clamping to valid interval [0, duration] (NF01 & EF01).
+   * Seeks audio to target timestamp, clamping to valid interval [0, duration] (NF01 and EF01).
    *
    * @param value - Requested playback position in seconds
    */
   const seek = (value: number) => {
-    // NF01 & EF01: Clamp requested timestamp to nearest valid boundary (0 or duration)
+    // NF01 and EF01: Clamp requested timestamp to nearest valid boundary (0 or duration)
     const maxDur = Math.max(duration, 0);
     const clamped = Math.max(0, Math.min(value, maxDur));
     audio.currentTime = clamped;
@@ -335,8 +335,15 @@ export function MusicPlayer({
       <div className="player-track">
         <img src={track.coverUrl ?? undefined} alt={`${track.title} cover`} />
         <div>
-          <a href={`#/track/${track.id}`}>{track.title}</a>
-          <a href={`#/creator/${track.creator.userId}`}>{track.creator.displayName}</a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <a href={`#/track/${track.id}`}>{track.title}</a>
+            {playing && (
+              <span className="player-live-wave" title="Playing" aria-label="Playing">
+                <i /><i /><i />
+              </span>
+            )}
+          </div>
+          <a href={`#/creator/${track.creator?.userId}`}>{track.creator?.displayName || "Artist"}</a>
           {playbackContext && (
             <span
               style={{
@@ -344,9 +351,9 @@ export function MusicPlayer({
                 alignItems: "center",
                 fontSize: "10px",
                 fontWeight: 600,
-                color: "var(--brand, #0284c7)",
-                background: "rgba(224, 242, 254, 0.75)",
-                border: "1px solid rgba(186, 230, 253, 0.6)",
+                color: "#c4b5fd",
+                background: "rgba(139, 92, 246, 0.15)",
+                border: "1px solid rgba(139, 92, 246, 0.3)",
                 padding: "1px 7px",
                 borderRadius: "6px",
                 overflow: "hidden",
@@ -415,7 +422,7 @@ export function MusicPlayer({
             {queue.map((item) => (
               <button key={item.id} className={item.id === track.id ? "queue-item queue-item--active" : "queue-item"} onClick={() => onTrackChange(item, true)}>
                 <img src={item.coverUrl ?? undefined} alt="" />
-                <span><b>{item.title}</b><small>{item.creator.displayName}</small></span>
+                <span><b>{item.title}</b><small>{item.creator?.displayName || "Artist"}</small></span>
                 <small>{formatTime(item.durationMs / 1000)}</small>
               </button>
             ))}

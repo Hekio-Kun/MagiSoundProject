@@ -130,7 +130,7 @@ export function AdminGenreManagementPage() {
         <div>
           <span className="ops-role-mark"><DiscIcon width={15} height={15} />CATALOG SETTINGS</span>
           <h1>Genre Management</h1>
-          <p>Create and maintain the genres available across SoundWave.</p>
+          <p>Create and maintain the genres available across MagiSound.</p>
         </div>
         <button type="button" className="button button-primary" onClick={openCreateForm}><PlusIcon width={17} height={17} />Create genre</button>
       </header>

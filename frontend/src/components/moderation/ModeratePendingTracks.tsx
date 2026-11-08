@@ -100,7 +100,7 @@ export function ModeratePendingTracks({
     }
   };
 
-  // Filters & Pagination
+  // Filters and Pagination
   const [statusFilter, setStatusFilter] = useState<string>("PENDING");
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -351,7 +351,7 @@ export function ModeratePendingTracks({
 
       {/* Main Review Workspace Panel */}
       <section className="staff-queue-panel">
-        {/* Panel Header & Live Controls */}
+        {/* Panel Header and Live Controls */}
         <div className="staff-queue-panel-header">
           <div className="staff-queue-title-group">
             <h2 className="staff-queue-heading">Moderation Queue</h2>
@@ -374,7 +374,7 @@ export function ModeratePendingTracks({
           </div>
         </div>
 
-        {/* Toolbar: Segmented Filter Tabs & Instant Search */}
+        {/* Toolbar: Segmented Filter Tabs and Instant Search */}
         <div className="staff-filter-toolbar">
           <div className="staff-segmented-tabs" role="tablist" aria-label="Submission status tabs">
             <button
@@ -561,7 +561,7 @@ export function ModeratePendingTracks({
                   </button>
                 </div>
 
-                {/* Core Track & Creator Metadata with accessible button title */}
+                {/* Core Track and Creator Metadata with accessible button title */}
                 <div className="staff-track-meta-section">
                   <div className="staff-track-name-row">
                     <button

@@ -2,14 +2,11 @@
 
 // Modals
 export * from "./modals/AddTrackToPlaylistModal";
-export * from "./modals/AlbumDetailModal";
-export * from "./modals/AlbumFormModal";
 export * from "./modals/DeleteConfirmationModal";
 export * from "./modals/GenreFormModal";
 export * from "./modals/GuestLoginPrompt";
 export * from "./modals/LogoutConfirmationDialog";
 export * from "./modals/CenterNotificationPopup";
-export * from "./modals/ManageAlbumTracksModal";
 export * from "./modals/ManagePlaylistTracksModal";
 export * from "./modals/PlaylistFormModal";
 export * from "./modals/RejectionDetailsModal";
@@ -18,8 +15,8 @@ export * from "./modals/RejectionDetailsModal";
 export * from "./layout/AppTopBar";
 export * from "./layout/MobileBottomNav";
 export * from "./layout/Sidebar";
-export * from "./layout/SoundWaveFooter";
-export * from "./layout/SoundWaveHeader";
+export * from "./layout/MagiSoundFooter";
+export * from "./layout/MagiSoundHeader";
 
 // Player
 export * from "./player/MusicPlayer";
@@ -29,7 +26,6 @@ export * from "./player/QueueDrawer";
 export * from "./common/MediaUploadField";
 export * from "./common/MusicCards";
 export * from "./common/SortDropdown";
-export * from "./common/LandingPage";
 export * from "./common/LyricSyncTab";
 
 // Moderation

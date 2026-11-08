@@ -57,3 +57,25 @@ export const DownloadIcon = (p: IconProps) => <svg {...base} {...p}><path d="M21
 export const MusicIcon = (p: IconProps) => <svg {...base} {...p}><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>;
 export const ZapIcon = (p: IconProps) => <svg {...base} {...p}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>;
 
+export const SparklesIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/>
+    <path d="M19 3v4M21 5h-4M5 19v2M6 20H4"/>
+  </svg>
+);
+
+export const FlameIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+  </svg>
+);
+
+export const TrophyIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+    <path d="M4 22h16" />
+    <path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-2c-.55 0-1-.45-1-1v-2.34" />
+    <path d="M6 4h12a2 2 0 0 1 2 2v3a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6V6a2 2 0 0 1 2-2z" />
+  </svg>
+);

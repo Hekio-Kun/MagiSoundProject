@@ -138,7 +138,7 @@ export function LyricSyncTab({
   const lineListRef = useRef<HTMLDivElement | null>(null);
   const activeLineElementRef = useRef<HTMLDivElement | null>(null);
 
-  // 1. Audio setup & revoke object URL
+  // 1. Audio setup and revoke object URL
   useEffect(() => {
     if (audioFile) {
       const url = URL.createObjectURL(audioFile);
@@ -353,7 +353,7 @@ export function LyricSyncTab({
     setDictationInput("");
   };
 
-  // Save & Apply Actions
+  // Save and Apply Actions
   const handleApply = () => {
     const lrcContent = compileLinesToLrc(lines);
     if (!lrcContent.trim()) {
@@ -386,7 +386,7 @@ export function LyricSyncTab({
     const a = document.createElement("a");
     const safeTitle = trackTitle.trim()
       ? trackTitle.trim().toLowerCase().replace(/[^a-z0-9]/gi, "_")
-      : "soundwave_lyrics";
+      : "magisound_lyrics";
     a.href = url;
     a.download = `${safeTitle}.lrc`;
     document.body.appendChild(a);
@@ -493,7 +493,7 @@ export function LyricSyncTab({
             LRC MAKER | STUDIO
           </span>
           <h3 style={{ margin: "2px 0 0", fontSize: "16px", fontWeight: 800, color: "#1C1917" }}>
-            LRC Maker & Lyric Synchronizer
+            LRC Maker and Lyric Synchronizer
           </h3>
           <p style={{ margin: "3px 0 0", fontSize: "12px", color: "#786F65", display: "flex", alignItems: "center", gap: "5px" }}>
             <MusicIcon width={13} height={13} style={{ color: "#0284C7" }} />
@@ -785,7 +785,7 @@ export function LyricSyncTab({
               >
                 <FileTextIcon width={16} height={16} style={{ flexShrink: 0, marginTop: "2px", color: "#0284C7" }} />
                 <div>
-                  <strong>Paste raw lyrics:</strong> Paste song lyrics below (one line per verse). Click <strong>&quot;Parse lines & Start sync&quot;</strong> to begin playback and timestamping!
+                  <strong>Paste raw lyrics:</strong> Paste song lyrics below (one line per verse). Click <strong>&quot;Parse lines and Start sync&quot;</strong> to begin playback and timestamping!
                 </div>
               </div>
 
@@ -815,7 +815,7 @@ export function LyricSyncTab({
                 style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: "6px" }}
               >
                 <CheckIcon width={15} height={15} />
-                <span>Parse lines & Start sync</span>
+                <span>Parse lines and Start sync</span>
               </button>
             </div>
           ) : (

@@ -63,12 +63,12 @@ export function AuthExperience({
 }) {
   return (
     <main className="auth-v2-experience">
-      <section className="auth-v2-story" aria-label="About SoundWave">
+      <section className="auth-v2-story" aria-label="About MagiSound">
         <div className="auth-v2-orbit auth-v2-orbit--one" />
         <div className="auth-v2-orbit auth-v2-orbit--two" />
-        <button className="auth-v2-brand" onClick={() => onNavigate("/")} aria-label="Return to SoundWave Explore">
-          <img src="/soundwave-logo.png" alt="" />
-          <span>SoundWave</span>
+        <button className="auth-v2-brand" onClick={() => onNavigate("/")} aria-label="Return to MagiSound Explore">
+          <img src="/magisound-logo.svg" alt="" />
+          <span>MagiSound</span>
         </button>
         <div className="auth-v2-story-content">
           <span className="auth-v2-story-tag"><HeadphonesIcon width={15} height={15} /> MUSIC CONNECTS THE COMMUNITY</span>
@@ -77,7 +77,7 @@ export function AuthExperience({
 
           <div className="auth-v2-now-playing">
             <span className="auth-v2-cover"><i /><i /><i /><i /></span>
-            <span><small>NOW PLAYING ON SOUNDWAVE</small><strong>Thành Phố Sau Mưa</strong><em>Bảo Lam · Pop</em></span>
+            <span><small>NOW PLAYING ON MAGISOUND</small><strong>Thành Phố Sau Mưa</strong><em>Bảo Lam · Pop</em></span>
             <b><PlayIcon width={17} height={17} /></b>
           </div>
 
@@ -328,7 +328,7 @@ export function LoginPage({ onLoginSuccess, onNavigate }: AuthProps) {
   const isWarningRemainingAttempts = apiError.includes("remaining before");
 
   return (
-    <AuthExperience mode="login" eyebrow="WELCOME BACK" title="Continue with SoundWave" description="Log in to open your personal library and continue listening where you left off." onNavigate={onNavigate}>
+    <AuthExperience mode="login" eyebrow="WELCOME BACK" title="Continue with MagiSound" description="Log in to open your personal library and continue listening where you left off." onNavigate={onNavigate}>
       <form onSubmit={handleSubmit} className="auth-v2-form" noValidate>
         {Object.values(errors).some(Boolean) ? <AuthErrorNotice message="Please review the fields marked below." /> : null}
         {apiError ? (
@@ -561,7 +561,7 @@ export function RegisterPage({ onNavigate }: { onNavigate: (route: string) => vo
             </div>
             <PasswordField id="reg-confirm" label="Confirm Password" value={confirmPassword} onChange={updateField("reg-confirm", setConfirmPassword)} autoComplete="new-password" error={errors["reg-confirm"]} />
             <div className={`auth-v2-terms-wrap ${errors["reg-terms"] ? "has-error" : ""}`}>
-              <label className="auth-v2-terms"><input id="reg-terms" type="checkbox" checked={termsAccepted} onChange={(event) => { setTermsAccepted(event.target.checked); setErrors((current) => ({ ...current, "reg-terms": "" })); }} aria-invalid={Boolean(errors["reg-terms"])} aria-describedby={errors["reg-terms"] ? "reg-terms-error" : undefined} /><span>I accept SoundWave's <button type="button">Terms of Use</button> and <button type="button">Community Policy</button>.</span></label>
+              <label className="auth-v2-terms"><input id="reg-terms" type="checkbox" checked={termsAccepted} onChange={(event) => { setTermsAccepted(event.target.checked); setErrors((current) => ({ ...current, "reg-terms": "" })); }} aria-invalid={Boolean(errors["reg-terms"])} aria-describedby={errors["reg-terms"] ? "reg-terms-error" : undefined} /><span>I accept MagiSound's <button type="button">Terms of Use</button> and <button type="button">Community Policy</button>.</span></label>
               {errors["reg-terms"] ? <small className="auth-v2-field-error" id="reg-terms-error"><AlertIcon width={12} height={12} />{errors["reg-terms"]}</small> : null}
             </div>
             <button type="submit" className="button button-primary button-large auth-v2-submit" disabled={submitting}>{submitting ? "Creating account…" : "Register"}</button>
@@ -602,9 +602,9 @@ export function ForgotPasswordPage({ onNavigate }: { onNavigate: (route: string)
   };
 
   return (
-    <AuthExperience mode="recovery" eyebrow="ACCOUNT RECOVERY" title="Forgot Password?" description="Enter your registered email and SoundWave will send password-reset instructions." onNavigate={onNavigate}>
+    <AuthExperience mode="recovery" eyebrow="ACCOUNT RECOVERY" title="Forgot Password?" description="Enter your registered email and MagiSound will send password-reset instructions." onNavigate={onNavigate}>
       <form className="auth-v2-form" onSubmit={handleSubmit} noValidate>
-          {Object.values(errors).some(Boolean) ? <AuthErrorNotice message="Enter the email used to register your SoundWave account." /> : null}
+          {Object.values(errors).some(Boolean) ? <AuthErrorNotice message="Enter the email used to register your MagiSound account." /> : null}
           {apiError ? <AuthErrorNotice title="Unable to send OTP" message={apiError} /> : null}
           <TextField id="forgot-email" type="email" label="Email" value={email} onChange={(value) => { setEmail(value); setErrors({}); setApiError(""); }} placeholder="you@example.com" autoComplete="email" icon={<MailIcon width={17} height={17} />} error={errors["forgot-email"]} />
           <button className="button button-primary button-large auth-v2-submit" disabled={submitting}>{submitting ? "Sending OTP…" : "Send Reset OTP"}</button>

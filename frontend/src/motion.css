@@ -123,7 +123,7 @@ html { scroll-behavior: smooth; }
 .nav-item--active::after { opacity: 1; transform: translateX(0) scaleY(1); }
 .sidebar-brand .brand:hover .brand-mark { transform: rotate(-5deg) scale(1.06); }
 .sidebar-brand .brand-mark { transition: transform 320ms var(--sw-ease-emphasized), box-shadow 320ms ease; }
-.sidebar-brand .brand:hover .brand-mark { box-shadow: 0 9px 22px rgba(2, 132, 199, .22); }
+.sidebar-brand .brand:hover .brand-mark { box-shadow: 0 9px 22px rgba(139, 92, 246, .45); }
 
 /* Hero: stagger nội dung, giữ biên độ nhỏ để không gây mất tập trung. */
 .discover-hero-copy > * { animation: sw-hero-item 560ms var(--sw-ease-emphasized) both; }
@@ -233,7 +233,7 @@ html { scroll-behavior: smooth; }
 .track-cover-button.is-playing { animation: sw-cover-playing 3.2s ease-in-out infinite; }
 @keyframes sw-cover-playing {
   0%, 100% { transform: translate3d(0, 0, 0); box-shadow: 0 18px 42px rgba(16, 24, 40, .18); }
-  50% { transform: translate3d(0, -4px, 0); box-shadow: 0 24px 54px rgba(2, 132, 199, .22); }
+  50% { transform: translate3d(0, -4px, 0); box-shadow: 0 24px 54px rgba(139, 92, 246, .45); }
 }
 
 .track-round-action.is-favorite { animation: sw-heart-pop 420ms var(--sw-ease-emphasized); }
@@ -258,8 +258,8 @@ html { scroll-behavior: smooth; }
 .player-track img { transition: transform 420ms var(--sw-ease-emphasized), box-shadow 420ms ease; }
 .music-player--playing .player-track img { animation: sw-player-cover 3s ease-in-out infinite; }
 @keyframes sw-player-cover {
-  0%, 100% { transform: scale(1); box-shadow: 0 3px 10px rgba(140, 88, 40, .12); }
-  50% { transform: scale(1.035); box-shadow: 0 8px 22px rgba(2, 132, 199, .22), 0 0 0 1.5px rgba(212, 163, 115, .45); }
+  0%, 100% { transform: scale(1); box-shadow: 0 3px 10px rgba(0, 0, 0, .4); }
+  50% { transform: scale(1.035); box-shadow: 0 8px 22px rgba(139, 92, 246, .45), 0 0 0 1.5px rgba(6, 182, 212, .6); }
 }
 
 .player-play { position: relative; isolation: isolate; }
@@ -268,7 +268,7 @@ html { scroll-behavior: smooth; }
   position: absolute;
   inset: -5px;
   z-index: -1;
-  border: 2px solid rgba(2, 132, 199, .36);
+  border: 2px solid rgba(139, 92, 246, .5);
   border-radius: 50%;
   animation: sw-player-ring 2s ease-out infinite;
 }
