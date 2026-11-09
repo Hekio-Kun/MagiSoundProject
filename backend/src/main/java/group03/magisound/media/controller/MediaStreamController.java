@@ -38,7 +38,7 @@ public class MediaStreamController {
         }
 
         if (rangeHeader == null || rangeHeader.isBlank()) {
-            ResourceRegion region = new ResourceRegion(audioResource, 0, Math.min(1024 * 1024L, contentLength));
+            ResourceRegion region = new ResourceRegion(audioResource, 0, contentLength);
             return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
                     .contentType(mediaType)
                     .header(HttpHeaders.ACCEPT_RANGES, "bytes")

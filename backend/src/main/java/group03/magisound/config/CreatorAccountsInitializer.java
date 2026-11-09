@@ -45,7 +45,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "sontungmtp",
                     "Sơn Tùng M-TP",
                     "Ca sĩ, nhạc sĩ, nhà sản xuất âm nhạc V-Pop hàng đầu. Founder M-TP Entertainment.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565403/soundwave/tracks/covers/project-cover-noi-nay-co-anh.webp"
+                    "/api/media/avatar/avatar-user-10.webp"
             ),
             new CreatorSeed(
                     11L,
@@ -53,7 +53,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "hieuthuhai",
                     "HIEUTHUHAI",
                     "Rapper thành viên nhóm nhạc GERDNANG. Chủ nhân album thành công 'Ai Cũng Phải Bắt Đầu Từ Đâu Đó'.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565335/soundwave/tracks/covers/project-cover-exit-sign-hieuthuhai.webp"
+                    "/api/media/avatar/avatar-user-11.webp"
             ),
             new CreatorSeed(
                     12L,
@@ -61,7 +61,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "mck99",
                     "MCK",
                     "Rapper, ca sĩ, nhạc sĩ thuộc tổ đội RPT. Chủ nhân album đình đám '99%'.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565314/soundwave/tracks/covers/project-cover-baby-mck.webp"
+                    "/api/media/avatar/avatar-user-12.webp"
             ),
             new CreatorSeed(
                     13L,
@@ -69,7 +69,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "uyenlinh",
                     "Uyên Linh",
                     "Nữ ca sĩ sở hữu giọng hát nội lực, truyền cảm với các bản hit Ballad da diết.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565356/soundwave/tracks/covers/project-cover-giua-dai-lo-dong-tay.webp"
+                    "/api/media/avatar/avatar-user-13.webp"
             ),
             new CreatorSeed(
                     14L,
@@ -77,7 +77,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "hngle",
                     "Hngle",
                     "Nghệ sĩ Indie R&B trẻ với màu sắc âm nhạc hiện đại, cảm xúc và bay bổng.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565384/soundwave/tracks/covers/project-cover-tim-em-hngle-bao-anh.webp"
+                    "/api/media/avatar/avatar-user-14.webp"
             ),
             new CreatorSeed(
                     15L,
@@ -85,7 +85,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "yoasobi",
                     "YOASOBI",
                     "Japanese music superduo composed of producer Ayase and vocalist ikura, turning novels into music.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565560/soundwave/tracks/covers/project-cover-yoru-ni-kakeru.webp"
+                    "/api/media/avatar/avatar-user-15.webp"
             ),
             new CreatorSeed(
                     16L,
@@ -93,7 +93,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "yorushika",
                     "Yorushika",
                     "Japanese rock duo consisting of producer n-buna and vocalist suis. Creators of nostalgic melodic themes.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565498/soundwave/tracks/covers/project-cover-haru-yorushika.webp"
+                    "/api/media/avatar/avatar-user-16.webp"
             ),
             new CreatorSeed(
                     17L,
@@ -101,7 +101,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "yokotakahashi",
                     "Yoko Takahashi",
                     "Legendary Japanese singer acclaimed for performing the theme songs of Neon Genesis Evangelion.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565523/soundwave/tracks/covers/project-cover-a-cruel-angels-thesis.webp"
+                    "/api/media/avatar/avatar-user-17.webp"
             ),
             new CreatorSeed(
                     18L,
@@ -109,7 +109,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "yamazaki",
                     "Masayoshi Yamazaki",
                     "Veteran Japanese singer-songwriter celebrated for the iconic theme 'One more time, One more chance'.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565463/soundwave/tracks/covers/project-cover-one-more-time-one-more-chance.webp"
+                    "/api/media/avatar/avatar-user-18.webp"
             ),
             new CreatorSeed(
                     19L,
@@ -117,7 +117,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "lowg",
                     "Low G",
                     "Rapper thuộc Rapital, được mệnh danh là 'chủ tọa' với phong cách flow mượt mà đặc trưng.",
-                    "https://res.cloudinary.com/dq0jm9tlt/image/upload/v1791565431/soundwave/tracks/covers/project-cover-laviem.webp"
+                    "/api/media/avatar/avatar-user-19.webp"
             ),
             new CreatorSeed(
                     20L,
@@ -125,7 +125,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "minhan",
                     "Minh An",
                     "Acoustic and Indie pop artist crafting gentle, soulful melodies for quiet contemplation.",
-                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                    "/api/media/avatar/avatar-user-20.jpg"
             ),
             new CreatorSeed(
                     3L,
@@ -133,7 +133,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "lehaiduy",
                     "Lê Hải Duy",
                     "Creator & Music Producer on MagiSound.",
-                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+                    "/api/media/avatar/avatar-user-3.jpg"
             ),
             new CreatorSeed(
                     7L,
@@ -141,7 +141,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "thienphuc",
                     "Thiên Phúc",
                     "Creator & Music Artist on MagiSound.",
-                    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+                    "/api/media/avatar/avatar-user-7.jpg"
             ),
             new CreatorSeed(
                     8L,
@@ -149,7 +149,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "minhtri",
                     "Minh Trí",
                     "Producer & Sound Designer on MagiSound.",
-                    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80"
+                    "/api/media/avatar/avatar-user-8.jpg"
             ),
             new CreatorSeed(
                     9L,
@@ -157,7 +157,7 @@ public class CreatorAccountsInitializer implements ApplicationRunner {
                     "anhtuan",
                     "Anh Tuấn",
                     "Indie Beatmaker & Audio Engineer.",
-                    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80"
+                    "/api/media/avatar/avatar-user-9.jpg"
             )
     );
 

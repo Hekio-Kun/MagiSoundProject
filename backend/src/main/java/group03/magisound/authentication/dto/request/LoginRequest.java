@@ -6,5 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 public record LoginRequest(
         @NotBlank @Email String email,
         @NotBlank String password,
-        boolean rememberMe
-) {}
+        Boolean rememberMe
+) {
+    public LoginRequest {
+        if (rememberMe == null) {
+            rememberMe = Boolean.FALSE;
+        }
+    }
+}
