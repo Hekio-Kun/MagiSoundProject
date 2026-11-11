@@ -487,6 +487,7 @@ export function LoginPage({ onLoginSuccess, onNavigate }: AuthProps) {
       </form>
 
       <p className="auth-v2-switch">Do not have an account? <button onClick={() => onNavigate("/register")}>Register</button></p>
+      <p className="auth-v2-switch" style={{ marginTop: "0.5rem", fontSize: "0.82rem", opacity: 0.85 }}>Are you a MagiSound staff or admin? <button type="button" onClick={() => onNavigate("/staff/login")}>Go to Staff Portal</button></p>
     </AuthExperience>
   );
 }

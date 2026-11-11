@@ -41,7 +41,7 @@ export const adminStaffApi = {
   createStaff: (payload: CreateStaffInput) => {
     return apiFetch<CreateStaffResult>("/admin/staffs", {
       method: "POST",
-      body: JSON.stringify(payload),
+      body: payload,
     });
   },
 
@@ -51,7 +51,7 @@ export const adminStaffApi = {
   deactivateStaff: (staffId: number, payload: DeactivateStaffInput) => {
     return apiFetch<DeactivateStaffResult>(`/admin/staffs/${staffId}/deactivate`, {
       method: "PATCH",
-      body: JSON.stringify(payload),
+      body: payload,
     });
   },
 

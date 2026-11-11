@@ -123,14 +123,6 @@ export function DashboardLayout({ children, activeRoute, user, onNavigate, onLog
               <DiscIcon width={17} height={17} />
               <span>Genre Management</span>
             </button>
-            <button
-              type="button"
-              className={activeRoute.startsWith("/staff") ? "is-active" : ""}
-              onClick={() => handleNavClick("/staff/dashboard")}
-            >
-              <DashboardIcon width={17} height={17} />
-              <span>Staff Moderation Queue</span>
-            </button>
           </>
         )}
       </nav>

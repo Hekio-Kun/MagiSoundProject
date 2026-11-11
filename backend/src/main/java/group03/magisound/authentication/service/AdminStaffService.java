@@ -55,7 +55,7 @@ public class AdminStaffService {
      */
     @Transactional(readOnly = true)
     public StaffDirectoryPageResponse getStaffDirectory(String search, String status, String role, Pageable pageable) {
-        String normalizedSearch = (search != null && !search.isBlank()) ? search.trim().toLowerCase(Locale.ROOT) : null;
+        String normalizedSearch = (search != null && !search.isBlank()) ? search.trim().toLowerCase(Locale.ROOT) : "";
         UserStatus statusFilter = null;
         if (status != null && !status.isBlank() && !"ALL".equalsIgnoreCase(status.trim())) {
             try {

@@ -39,11 +39,11 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     @Query(value = "SELECT u FROM AppUser u JOIN FETCH u.role r " +
                    "WHERE r.code IN ('STAFF', 'ADMIN') " +
-                   "AND (:search IS NULL OR LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+                   "AND (:search = '' OR LOWER(u.email) LIKE CONCAT('%', :search, '%')) " +
                    "AND (:status IS NULL OR u.status = :status)",
            countQuery = "SELECT count(u) FROM AppUser u JOIN u.role r " +
                         "WHERE r.code IN ('STAFF', 'ADMIN') " +
-                        "AND (:search IS NULL OR LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+                        "AND (:search = '' OR LOWER(u.email) LIKE CONCAT('%', :search, '%')) " +
                         "AND (:status IS NULL OR u.status = :status)")
     Page<AppUser> findStaffUsers(
             @Param("search") String search,

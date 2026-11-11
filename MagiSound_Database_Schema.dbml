@@ -1,0 +1,450 @@
+// ==============================================================================
+// MagiSound Music Streaming Platform - Database Schema
+// Database Engine: PostgreSQL 18 (Local instance 127.0.0.1:5432/magisound)
+// Format: DBML (Database Markup Language) for https://dbdiagram.io
+// ==============================================================================
+
+Project MagiSound {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # MagiSound Music Streaming Platform
+    Production Relational Database Schema
+    - 23 Physical Tables
+    - Modular Architecture: IAM, Catalog, Library, Lyrics, Moderation & Staff
+  '''
+}
+
+// ------------------------------------------------------------------------------
+// ENUMS & DOMAIN TYPES
+// ------------------------------------------------------------------------------
+
+Enum user_status_enum {
+  ACTIVE
+  PENDING
+  LOCKED
+  BANNED
+}
+
+Enum track_publication_status_enum {
+  DRAFT
+  PENDING
+  PUBLISHED
+  REJECTED
+  TAKEN_DOWN
+}
+
+Enum playlist_visibility_enum {
+  PUBLIC
+  PRIVATE
+}
+
+Enum submission_status_enum {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+Enum report_category_enum {
+  COPYRIGHT
+  OFFENSIVE
+  MISLEADING
+  SPAM
+  OTHER
+}
+
+// ==============================================================================
+// DOMAIN: IDENTITY ACCESS MANAGEMENT
+// ==============================================================================
+
+Table roles {
+  id smallint [pk, increment]
+  code varchar(30) [not null]
+  created_at timestamp [not null]
+  description varchar(500)
+  name varchar(80) [not null]
+}
+
+Table app_users {
+  id bigint [pk, increment]
+  created_at timestamp [not null]
+  deleted_at timestamp
+  email varchar(320) [not null]
+  email_verified_at timestamp
+  last_login_at timestamp
+  locked_until timestamp
+  password_hash varchar(255) [not null]
+  status varchar(30) [not null]
+  updated_at timestamp [not null]
+  role_id smallint [not null]
+}
+
+Table user_profiles {
+  user_id bigint [pk]
+  username varchar(50) [not null]
+  display_name varchar(120) [not null]
+  bio varchar(1000)
+  avatar_public_id varchar(255)
+  avatar_url varchar(2048)
+  date_of_birth date
+  country_code char(2)
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table refresh_tokens {
+  id bigint [pk, increment]
+  user_id bigint
+  user_id bigint
+  token_hash varchar(255) [not null]
+  expires_at timestamp [not null]
+  revoked_at timestamp
+  created_at timestamp [not null]
+  staff_id bigint
+}
+
+Table email_verification_tokens {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  user_id bigint [not null]
+  token_hash varchar(255) [not null]
+  expires_at timestamp [not null]
+  used_at timestamp
+  created_at timestamp [not null]
+}
+
+Table password_reset_tokens {
+  id bigint [pk, increment]
+  user_id bigint
+  user_id bigint
+  token_hash varchar(255) [not null]
+  expires_at timestamp [not null]
+  used_at timestamp
+  created_at timestamp [not null]
+  staff_id bigint
+}
+
+Table account_unlock_tokens {
+  id bigint [pk, increment]
+  created_at timestamp [not null]
+  expires_at timestamp [not null]
+  token_hash varchar(255) [not null]
+  used_at timestamp
+  user_id bigint
+  staff_id bigint
+}
+
+// ==============================================================================
+// DOMAIN: MUSIC CATALOG MEDIA
+// ==============================================================================
+
+Table genres {
+  id bigint [pk, increment]
+  name varchar(100) [not null]
+  slug varchar(100) [not null]
+  description varchar(1000)
+  is_active boolean [not null]
+  created_by_user_id bigint
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table tracks {
+  id bigint [pk, increment]
+  uploader_user_id bigint [not null]
+  album_id bigint
+  genre_id bigint [not null]
+  title varchar(200) [not null]
+  slug varchar(220) [not null]
+  description varchar(2000)
+  track_number integer
+  publication_status varchar(30) [not null]
+  approved_at timestamp
+  latest_rejection_reason varchar(1000)
+  audio_public_id varchar(255)
+  audio_url varchar(2048)
+  audio_format varchar(20) [not null]
+  duration_ms integer [not null]
+  cover_public_id varchar(255)
+  cover_url varchar(2048)
+  play_count_cache bigint [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  lyrics text
+}
+
+Table albums {
+  id bigint [pk, increment]
+  created_by_user_id bigint [not null]
+  title varchar(200) [not null]
+  slug varchar(220) [not null]
+  description varchar(2000)
+  status varchar(30) [not null]
+  cover_public_id varchar(255)
+  cover_url varchar(2048)
+  release_date date
+  published_at timestamp
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  latest_rejection_reason varchar(1000)
+  reviewed_at timestamp
+  reviewer_note varchar(2000)
+  reviewer_user_id bigint
+}
+
+Table users {
+  id bigint [pk, increment]
+  email varchar(320) [not null]
+  password_hash varchar(255) [not null]
+  status varchar(30) [not null]
+  email_verified_at timestamp
+  last_login_at timestamp
+  deleted_at timestamp
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  locked_until timestamp
+}
+
+// ==============================================================================
+// DOMAIN: USER LIBRARY STREAMING
+// ==============================================================================
+
+Table playlists {
+  id bigint [pk, increment]
+  owner_user_id bigint [not null]
+  name varchar(150) [not null]
+  description varchar(2000)
+  visibility varchar(30) [not null]
+  cover_public_id varchar(255)
+  cover_url varchar(2048)
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  created_by_user_id bigint [not null]
+  is_private boolean [not null]
+  slug varchar(180) [not null]
+  title varchar(150) [not null]
+}
+
+Table playlist_tracks {
+  playlist_id bigint [not null]
+  track_id bigint [not null]
+  added_by_user_id bigint [not null]
+  position integer [not null]
+  added_at timestamp [not null]
+  id bigint [not null]
+
+  indexes {
+    (playlist_id, track_id) [pk]
+  }
+}
+
+Table favorites {
+  user_id bigint [not null]
+  track_id bigint [not null]
+  created_at timestamp [not null]
+
+  indexes {
+    (user_id, track_id) [pk]
+  }
+}
+
+Table listening_history {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  track_id bigint [not null]
+  listened_duration_ms integer [not null]
+  completed boolean [not null]
+  played_at timestamp [not null]
+}
+
+// ==============================================================================
+// DOMAIN: LYRICS COMMUNITY
+// ==============================================================================
+
+Table official_lyrics {
+  id bigint [pk, increment]
+  track_id bigint [not null]
+  lyric_content text [not null]
+  status varchar(30) [not null]
+  created_by_user_id bigint [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table personal_lyrics {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  track_id bigint [not null]
+  lyric_type varchar(20) [not null]
+  lyric_content text [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table system_reviews {
+  id bigint [pk, increment]
+  user_id bigint [not null]
+  rating smallint [not null]
+  comment varchar(2000)
+  status varchar(30) [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+// ==============================================================================
+// DOMAIN: CONTENT MODERATION STAFF
+// ==============================================================================
+
+Table track_submissions {
+  id bigint [pk, increment]
+  track_id bigint [not null]
+  submitted_by_user_id bigint [not null]
+  reviewer_user_id bigint
+  status varchar(30) [not null]
+  submitter_note varchar(2000)
+  reviewer_note varchar(2000)
+  rejection_reason varchar(1000)
+  submitted_at timestamp [not null]
+  reviewed_at timestamp
+}
+
+Table content_reports {
+  id bigint [pk, increment]
+  track_id bigint [not null]
+  submitted_by_user_id bigint [not null]
+  handled_by_user_id bigint
+  category varchar(50) [not null]
+  description varchar(2000) [not null]
+  status varchar(50) [not null]
+  resolution_note varchar(2000)
+  created_at timestamp [not null]
+  handled_at timestamp
+  updated_at timestamp [not null]
+  reason varchar(100)
+  reporter_id bigint
+  resolved_at timestamptz
+  reviewer_id bigint
+  reviewer_note text
+  target_id bigint
+  target_type varchar(50)
+}
+
+Table notifications {
+  id bigint [pk, increment]
+  user_id bigint
+  type varchar(50) [not null]
+  title varchar(150) [not null]
+  message varchar(500) [not null]
+  action_url varchar(2048)
+  read_at timestamp
+  created_at timestamp [not null]
+  actor_id bigint
+  reference_id varchar(100)
+  reference_type varchar(50)
+  is_read boolean [not null]
+  staff_id bigint
+}
+
+Table staff_roles {
+  id smallint [pk, increment]
+  code varchar(30) [not null]
+  name varchar(80) [not null]
+  description varchar(500)
+  created_at timestamp [not null]
+}
+
+Table staffs {
+  id bigint [pk, increment]
+  role_id smallint [not null]
+  email varchar(320) [not null]
+  password_hash varchar(255) [not null]
+  full_name varchar(120) [not null]
+  avatar_url varchar(2048)
+  status varchar(30) [not null]
+  last_login_at timestamp
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+// ------------------------------------------------------------------------------
+// RELATIONSHIPS & REFERENTIAL INTEGRITY (REFS)
+// ------------------------------------------------------------------------------
+
+Ref: app_users.role_id > roles.id
+Ref: user_profiles.user_id - app_users.id
+Ref: refresh_tokens.user_id > app_users.id
+Ref: refresh_tokens.staff_id > staffs.id
+Ref: email_verification_tokens.user_id > app_users.id
+Ref: password_reset_tokens.user_id > app_users.id
+Ref: password_reset_tokens.staff_id > staffs.id
+Ref: account_unlock_tokens.user_id > users.id
+Ref: account_unlock_tokens.staff_id > staffs.id
+Ref: tracks.genre_id > genres.id
+Ref: tracks.uploader_user_id > users.id
+Ref: tracks.album_id > albums.id
+Ref: genres.created_by_user_id > users.id
+Ref: albums.created_by_user_id > users.id
+Ref: playlists.owner_user_id > users.id
+Ref: playlist_tracks.playlist_id > playlists.id
+Ref: playlist_tracks.track_id > tracks.id
+Ref: playlist_tracks.added_by_user_id > users.id
+Ref: favorites.user_id > users.id
+Ref: favorites.track_id > tracks.id
+Ref: listening_history.user_id > users.id
+Ref: listening_history.track_id > tracks.id
+Ref: official_lyrics.track_id - tracks.id
+Ref: official_lyrics.created_by_user_id > staffs.id
+Ref: personal_lyrics.user_id > users.id
+Ref: personal_lyrics.track_id > tracks.id
+Ref: system_reviews.user_id > users.id
+Ref: track_submissions.track_id > tracks.id
+Ref: track_submissions.submitted_by_user_id > users.id
+Ref: track_submissions.reviewer_user_id > staffs.id
+Ref: content_reports.track_id > tracks.id
+Ref: content_reports.submitted_by_user_id > users.id
+Ref: content_reports.handled_by_user_id > staffs.id
+Ref: notifications.user_id > users.id
+Ref: notifications.staff_id > staffs.id
+Ref: staffs.role_id > staff_roles.id
+
+// ------------------------------------------------------------------------------
+// TABLE GROUPS (Visual Canvas Containers in dbdiagram.io)
+// ------------------------------------------------------------------------------
+
+TableGroup Identity_Access_Management [color: #1E40AF] {
+  roles
+  app_users
+  user_profiles
+  refresh_tokens
+  email_verification_tokens
+  password_reset_tokens
+  account_unlock_tokens
+}
+
+TableGroup Music_Catalog_Media [color: #0F766E] {
+  genres
+  tracks
+  albums
+  users
+}
+
+TableGroup User_Library_Streaming [color: #6D28D9] {
+  playlists
+  playlist_tracks
+  favorites
+  listening_history
+}
+
+TableGroup Lyrics_Community [color: #B45309] {
+  official_lyrics
+  personal_lyrics
+  system_reviews
+}
+
+TableGroup Content_Moderation_Staff [color: #BE123C] {
+  track_submissions
+  content_reports
+  notifications
+  staff_roles
+  staffs
+}

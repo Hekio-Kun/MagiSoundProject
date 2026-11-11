@@ -7,7 +7,7 @@ import group03.magisound.authentication.exception.ProfileNotFoundException;
 import group03.magisound.authentication.exception.UsernameAlreadyExistsException;
 import group03.magisound.authentication.mapper.ProfileMapper;
 import group03.magisound.authentication.repository.UserProfileRepository;
-import group03.magisound.media.service.InternalMediaService;
+import group03.magisound.media.service.CloudMediaService;
 import group03.magisound.media.dto.response.StoredMediaResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 class ProfileServiceTest {
     @Mock private UserProfileRepository profileRepository;
     @Mock private ProfileMapper profileMapper;
-    @Mock private InternalMediaService cloudMediaService;
+    @Mock private CloudMediaService cloudMediaService;
 
     @Test
     void getCurrentProfileReturnsMappedAuthenticatedProfile() {

@@ -28,14 +28,28 @@ export type GenreInput = {
 };
 
 export const adminGenreApi = {
-  getGenres: (params: { search?: string; active?: boolean; page?: number; size?: number }) => {
+  getGenres: async (params: { search?: string; active?: boolean; page?: number; size?: number } = {}): Promise<AdminGenrePage> => {
     const query = new URLSearchParams();
     if (params.search?.trim()) query.set("search", params.search.trim());
     if (params.active !== undefined) query.set("active", String(params.active));
     query.set("page", String(params.page ?? 0));
     query.set("size", String(params.size ?? 10));
     query.set("sort", "name,asc");
-    return apiFetch<AdminGenrePage>(`/admin/genres?${query.toString()}`);
+    const raw = await apiFetch<any>(`/admin/genres?${query.toString()}`);
+    const content: AdminGenre[] = raw?.content ?? raw?.items ?? [];
+    const totalElements: number = raw?.totalElements ?? raw?.totalItems ?? content.length;
+    const totalPages: number = raw?.totalPages ?? 1;
+    const number: number = raw?.number ?? raw?.currentPage ?? 0;
+    const size: number = raw?.size ?? params.size ?? 10;
+    return {
+      content,
+      totalElements,
+      totalPages,
+      size,
+      number,
+      first: number === 0,
+      last: number >= totalPages - 1,
+    };
   },
 
   createGenre: (input: GenreInput) =>
