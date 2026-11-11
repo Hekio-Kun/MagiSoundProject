@@ -9,7 +9,7 @@ import group03.magisound.authentication.exception.UsernameAlreadyExistsException
 import group03.magisound.authentication.mapper.ProfileMapper;
 import group03.magisound.authentication.repository.UserProfileRepository;
 import group03.magisound.media.dto.response.StoredMediaResponse;
-import group03.magisound.media.service.InternalMediaService;
+import group03.magisound.media.service.CloudMediaService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -25,7 +25,7 @@ import java.util.Locale;
 public class ProfileService {
     private final UserProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
-    private final InternalMediaService cloudMediaService;
+    private final CloudMediaService cloudMediaService;
 
     /**
      * Lấy hồ sơ đầy đủ của người dùng hiện tại.

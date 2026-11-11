@@ -1,7 +1,7 @@
 package group03.magisound.admin.controller;
 
 import group03.magisound.admin.dto.response.SystemStatisticsResponse;
-import group03.magisound.admin.service.AdminStatisticsService;
+import group03.magisound.admin.service.SystemStatisticsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,29 +12,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller tiếp nhận và xử lý các yêu cầu HTTP xem số liệu thống kê hệ thống dành cho Admin (UC-22: View System Statistics).
- * Toàn bộ các endpoint trong controller này yêu cầu tài khoản có vai trò ADMIN (ROLE_ADMIN).
+ * Controller tiếp nhận và xử lý các yêu cầu HTTP xem số liệu thống kê hệ thống (UC-22: View System Statistics).
  */
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/admin/statistics")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
-public class AdminStatisticsController {
+public class SystemAnalyticsController {
 
-    private final AdminStatisticsService adminStatisticsService;
+    private final SystemStatisticsService systemStatisticsService;
 
     /**
-     * Lấy dữ liệu thống kê tổng thể của toàn bộ hệ thống MagiSound theo khoảng thời gian chỉ định.
+     * Lấy dữ liệu thống kê tổng thể của toàn bộ hệ thống MagiSound theo khoảng thời gian chỉ định (UC-22).
      *
-     * @param period Khoảng thời gian thống kê (ví dụ: "7d", "30d", "90d" - mặc định là "7d")
-     * @return DTO chứa dữ liệu tổng quan, top bài hát, biểu đồ tăng trưởng, cơ cấu người dùng và trạng thái hệ thống
+     * @param period Khoảng thời gian thống kê (mặc định là "7d")
+     * @return DTO chứa dữ liệu tổng quan, top bài hát, biểu đồ tăng trưởng và cơ cấu người dùng
      */
     @GetMapping
     public ResponseEntity<SystemStatisticsResponse> getSystemStatistics(
             @RequestParam(required = false, defaultValue = "7d") String period) {
         log.info("Admin requesting system statistics with period={}", period);
-        SystemStatisticsResponse response = adminStatisticsService.getSystemStatistics(period);
+        SystemStatisticsResponse response = systemStatisticsService.getSystemStatistics(period);
         return ResponseEntity.ok(response);
     }
 }

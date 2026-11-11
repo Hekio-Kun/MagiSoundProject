@@ -1,37 +1,43 @@
 package group03.magisound.moderation.controller;
 
-import group03.magisound.moderation.dto.request.CreateContentReportRequest;
-import group03.magisound.moderation.dto.request.CreateTrackReportRequest;
-import group03.magisound.moderation.dto.request.UpdateTrackReportRequest;
-import group03.magisound.moderation.dto.response.ContentReportResponse;
-import group03.magisound.moderation.dto.response.MyReportHistoryResponse;
-import group03.magisound.moderation.dto.response.TrackReportResponse;
+import group03.magisound.moderation.dto.request.*;
+import group03.magisound.moderation.dto.response.*;
 import group03.magisound.moderation.service.ContentReportService;
+import group03.magisound.moderation.service.StaffContentReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Controller tiếp nhận các báo cáo vi phạm nội dung (UC-16.1 & UC-16.2).
+ * Controller tiếp nhận và xử lý các báo cáo vi phạm nội dung theo đặc tả Sequence Diagram:
+ * - UC-16.1 & UC-16.2: Người dùng gửi và xem lại báo cáo vi phạm
+ * - UC-18.1 & UC-18.2: Nhân viên kiểm duyệt xem hàng đợi và xử lý báo cáo vi phạm
  */
+@Slf4j
 @RestController
-@RequestMapping("/api/v1/reports")
 @RequiredArgsConstructor
 public class ContentReportController {
 
     private final ContentReportService contentReportService;
+    private final StaffContentReportService staffContentReportService;
+
+    // =========================================================================
+    // UC-16: User Report Actions (/api/v1/reports)
+    // =========================================================================
 
     /**
      * Báo cáo vi phạm nội dung đối với bài hát đã phát hành (UC-16.1).
      */
-    @PostMapping
+    @PostMapping("/api/v1/reports")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TrackReportResponse> reportTrack(
             @Valid @RequestBody CreateTrackReportRequest request,
@@ -47,7 +53,7 @@ public class ContentReportController {
     /**
      * Cập nhật danh mục lý do vi phạm của báo cáo vi phạm nội dung đang chờ duyệt.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/api/v1/reports/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TrackReportResponse> updateTrackReport(
             @PathVariable("id") Long id,
@@ -65,7 +71,7 @@ public class ContentReportController {
     /**
      * Rút lại (hủy) báo cáo vi phạm nội dung đang ở trạng thái PENDING.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/v1/reports/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Map<String, Object>> withdrawTrackReport(
             @PathVariable("id") Long id,
@@ -83,8 +89,9 @@ public class ContentReportController {
 
     /**
      * Lấy toàn bộ lịch sử các báo cáo vi phạm do người nghe gửi (UC-16.2).
+     * Hỗ trợ cả /api/v1/reports/me (chuẩn Sequence) và /api/v1/reports/my-reports (tương thích frontend).
      */
-    @GetMapping("/my-reports")
+    @GetMapping({"/api/v1/reports/me", "/api/v1/reports/my-reports"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<MyReportHistoryResponse>> getMyReports(Authentication authentication) {
         List<MyReportHistoryResponse> response = contentReportService.getMyReports(authentication.getName());
@@ -94,7 +101,7 @@ public class ContentReportController {
     /**
      * Kiểm tra xem người dùng hiện tại đã có báo cáo PENDING cho bài hát hay chưa.
      */
-    @GetMapping("/check")
+    @GetMapping("/api/v1/reports/check")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Map<String, Object>> checkPendingReport(
             @RequestParam("trackId") Long trackId,
@@ -113,7 +120,7 @@ public class ContentReportController {
     /**
      * Báo cáo lỗi lời bài hát.
      */
-    @PostMapping("/lyrics")
+    @PostMapping("/api/v1/reports/lyrics")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ContentReportResponse> reportLyric(
             @Valid @RequestBody CreateContentReportRequest request,
@@ -124,5 +131,54 @@ public class ContentReportController {
                 request
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // =========================================================================
+    // UC-18: Staff Content Report Actions (/api/v1/moderation/reports & /api/v1/staff/reports)
+    // =========================================================================
+
+    /**
+     * Xem hàng đợi báo cáo vi phạm nội dung (UC-18.1: View User Reports).
+     */
+    @GetMapping({"/api/v1/moderation/reports", "/api/v1/staff/reports"})
+    @PreAuthorize("hasRole('STAFF') or hasRole('ADMIN')")
+    public ResponseEntity<List<StaffContentReportResponse>> getReportsQueue() {
+        return ResponseEntity.ok(staffContentReportService.getReportsQueue());
+    }
+
+    /**
+     * Xem chi tiết một báo cáo vi phạm nội dung.
+     */
+    @GetMapping({"/api/v1/moderation/reports/{id}", "/api/v1/staff/reports/{id}"})
+    @PreAuthorize("hasRole('STAFF') or hasRole('ADMIN')")
+    public ResponseEntity<StaffContentReportResponse> getReportById(@PathVariable Long id) {
+        return ResponseEntity.ok(staffContentReportService.getReportById(id));
+    }
+
+    /**
+     * Xử lý giải quyết báo cáo vi phạm nội dung (UC-18.2: Resolve Content Report).
+     */
+    @PostMapping({"/api/v1/moderation/reports/{id}/resolve", "/api/v1/staff/reports/{id}/resolve"})
+    @PreAuthorize("hasRole('STAFF') or hasRole('ADMIN')")
+    public ResponseEntity<StaffContentReportResponse> resolveReport(
+            @PathVariable Long id,
+            @Valid @RequestBody ResolveContentReportRequest request,
+            Principal principal
+    ) {
+        return ResponseEntity.ok(staffContentReportService.resolveReport(id, request, principal.getName()));
+    }
+
+    /**
+     * Gỡ bỏ bài hát đã phát hành vi phạm theo yêu cầu xử lý báo cáo.
+     */
+    @PostMapping("/api/v1/staff/tracks/{trackId}/takedown")
+    @PreAuthorize("hasRole('STAFF') or hasRole('ADMIN')")
+    public ResponseEntity<Void> takeDownTrack(
+            @PathVariable Long trackId,
+            @Valid @RequestBody TakeDownTrackRequest request,
+            Principal principal
+    ) {
+        staffContentReportService.takeDownPublishedTrack(trackId, request, principal.getName());
+        return ResponseEntity.noContent().build();
     }
 }

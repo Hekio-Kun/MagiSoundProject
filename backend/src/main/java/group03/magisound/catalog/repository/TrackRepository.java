@@ -16,6 +16,10 @@ import java.util.Optional;
 public interface TrackRepository extends JpaRepository<Track, Long> {
     Optional<Track> findByIdAndPublicationStatus(Long id, TrackPublicationStatus publicationStatus);
 
+    default Optional<Track> findByIdAndStatus(Long id, TrackPublicationStatus status) {
+        return findByIdAndPublicationStatus(id, status);
+    }
+
     Optional<Track> findBySlugAndPublicationStatus(String slug, TrackPublicationStatus publicationStatus);
 
     Page<Track> findByPublicationStatus(TrackPublicationStatus publicationStatus, Pageable pageable);
@@ -24,7 +28,11 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
 
     List<Track> findByUploaderUserIdOrderByCreatedAtDesc(Long uploaderUserId);
 
+    Page<Track> findByUploaderUserIdOrderByCreatedAtDesc(Long uploaderUserId, Pageable pageable);
+
     List<Track> findByUploaderUserIdAndPublicationStatusOrderByCreatedAtDesc(Long uploaderUserId, TrackPublicationStatus publicationStatus);
+
+    Page<Track> findByUploaderUserIdAndPublicationStatusOrderByCreatedAtDesc(Long uploaderUserId, TrackPublicationStatus publicationStatus, Pageable pageable);
 
     Optional<Track> findByIdAndUploaderUserId(Long id, Long uploaderUserId);
 
