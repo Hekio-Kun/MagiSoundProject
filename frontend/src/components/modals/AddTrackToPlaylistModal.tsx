@@ -27,6 +27,7 @@ export function AddTrackToPlaylistModal({
   const [availableTracks, setAvailableTracks] = useState<LandingTrack[]>([]);
 
   useEffect(() => {
+    setSearch("");
     if (!open) return;
     catalogApi.getTracks({ size: 100 })
       .then((res) => {
@@ -138,6 +139,24 @@ export function AddTrackToPlaylistModal({
               fontSize: "13px",
             }}
           />
+          {search && (
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              aria-label="Clear search"
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "2px",
+                display: "flex",
+                alignItems: "center",
+                color: "#64748b"
+              }}
+            >
+              <CloseIcon width={14} height={14} />
+            </button>
+          )}
         </div>
 
         {/* Tracks List */}

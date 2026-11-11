@@ -61,4 +61,7 @@ export const adminStaffApi = {
   getStaffModerationActivity: (staffId: number) => {
     return apiFetch<StaffModerationActivityResponse>(`/admin/staffs/${staffId}/activity`);
   },
+  getStaffActivity: (staffId: number) => {
+    return apiFetch<StaffModerationActivityResponse>(`/admin/staffs/${staffId}/activity`);
+  },
 };

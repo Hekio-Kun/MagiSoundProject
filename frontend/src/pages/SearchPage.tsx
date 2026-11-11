@@ -19,6 +19,10 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
   const [serverTracks, setServerTracks] = useState<LandingTrack[]>([]);
 
   useEffect(() => {
+    setSearchTerm(initialQuery);
+  }, [initialQuery]);
+
+  useEffect(() => {
     catalogApi.getTracks({ size: 100 })
       .then((res) => {
         if (res?.content) setServerTracks(res.content);
@@ -77,7 +81,7 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
             <SearchIcon width={21} height={21} />
             <input
               id="catalog-search"
-              type="search"
+              type="text"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Track or creator..."

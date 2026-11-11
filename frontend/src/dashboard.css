@@ -2751,13 +2751,15 @@ body.modal-open .app-scroll-region {
 
 .studio-crud-btn-warning {
   background: #fffbeb;
-  border-color: #ffffff;
-  color: #ffffff;
+  border: 1px solid #fcd34d;
+  color: #b45309;
+  font-weight: 600;
 }
 
 .studio-crud-btn-warning:hover {
   background: #fef3c7;
-  border-color: #fcd34d;
+  border-color: #f59e0b;
+  color: #92400e;
 }
 
 @media (max-width: 768px) {

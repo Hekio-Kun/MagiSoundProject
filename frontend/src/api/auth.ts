@@ -14,12 +14,14 @@ type ApiError = { code?: string; message?: string; fieldErrors?: Record<string, 
 export class AuthApiError extends Error {
   code?: string;
   fieldErrors: Record<string, string>;
+  status: number;
 
   constructor(payload: ApiError, status: number) {
     super(payload.message || `Authentication request failed (${status}).`);
     this.name = "AuthApiError";
     this.code = payload.code;
     this.fieldErrors = payload.fieldErrors ?? {};
+    this.status = status;
   }
 }
 

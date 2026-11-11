@@ -34,6 +34,7 @@ class ProfileServiceTest {
     @Mock private UserProfileRepository profileRepository;
     @Mock private ProfileMapper profileMapper;
     @Mock private CloudMediaService cloudMediaService;
+    @Mock private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @Test
     void getCurrentProfileReturnsMappedAuthenticatedProfile() {
@@ -126,8 +127,40 @@ class ProfileServiceTest {
         verify(cloudMediaService).deleteImageQuietly("soundwave/avatars/old");
     }
 
+    @Test
+    void changePasswordSuccess() {
+        UserProfile profile = org.mockito.Mockito.mock(UserProfile.class);
+        group03.magisound.authentication.entity.AppUser user = org.mockito.Mockito.mock(group03.magisound.authentication.entity.AppUser.class);
+        when(profile.getUser()).thenReturn(user);
+        when(user.getPasswordHash()).thenReturn("hashedOldPassword");
+        when(profileRepository.findByUser_EmailIgnoreCase("listener@example.com"))
+                .thenReturn(Optional.of(profile));
+        when(passwordEncoder.matches("OldPassword@123", "hashedOldPassword")).thenReturn(true);
+        when(passwordEncoder.matches("NewPassword@123", "hashedOldPassword")).thenReturn(false);
+        when(passwordEncoder.encode("NewPassword@123")).thenReturn("hashedNewPassword");
+
+        group03.magisound.authentication.dto.request.ChangePasswordRequest request =
+                new group03.magisound.authentication.dto.request.ChangePasswordRequest(
+                        "OldPassword@123", "NewPassword@123", "NewPassword@123");
+
+        service().changePassword("listener@example.com", request);
+
+        verify(user).changePassword(eq("hashedNewPassword"), any());
+        verify(profileRepository).saveAndFlush(profile);
+    }
+
+    @Test
+    void changePasswordThrowsWhenMismatchConfirm() {
+        group03.magisound.authentication.dto.request.ChangePasswordRequest request =
+                new group03.magisound.authentication.dto.request.ChangePasswordRequest(
+                        "OldPassword@123", "NewPassword@123", "Mismatch@123");
+
+        assertThrows(group03.magisound.exception.BadRequestOperationException.class,
+                () -> service().changePassword("listener@example.com", request));
+    }
+
     private ProfileService service() {
-        return new ProfileService(profileRepository, profileMapper, cloudMediaService);
+        return new ProfileService(profileRepository, profileMapper, cloudMediaService, passwordEncoder);
     }
 
     private ProfileResponse response(String username) {

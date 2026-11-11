@@ -23,6 +23,12 @@ export type UpdateProfileInput = {
   countryCode: string | null;
 };
 
+export type ChangePasswordInput = {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
 async function request<T>(method: "GET" | "PATCH", body?: UpdateProfileInput, avatar?: File): Promise<T> {
   const formData = avatar ? new FormData() : null;
   if (formData && avatar) {
@@ -51,4 +57,9 @@ export const profileApi = {
   getCurrent: () => request<ProfileDetails>("GET"),
   getPublicProfile: (userId: number) => apiFetch<ProfileDetails>(`/profile/${userId}`),
   updateCurrent: (body: UpdateProfileInput, avatar?: File) => request<ProfileDetails>("PATCH", body, avatar),
+  changePassword: (body: ChangePasswordInput) =>
+    apiFetch<{ message: string }>("/profile/change-password", {
+      method: "POST",
+      body,
+    }),
 };

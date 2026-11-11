@@ -132,7 +132,8 @@ public class FavoriteService {
                 track.getGenre() != null ? track.getGenre().getName() : null,
                 null, // No Album in MagiSound
                 creatorSummary,
-                track.getCreatedAt()
+                track.getCreatedAt(),
+                track.getLyrics()
         );
     }
 }

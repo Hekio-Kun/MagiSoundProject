@@ -275,7 +275,8 @@ public class TrackCatalogService {
                 track.getGenre() != null ? track.getGenre().getName() : null,
                 albumSummary,
                 creatorSummary,
-                track.getCreatedAt()
+                track.getCreatedAt(),
+                track.getLyrics()
         );
     }
 }

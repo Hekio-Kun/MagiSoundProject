@@ -10,6 +10,10 @@ import group03.magisound.authentication.mapper.ProfileMapper;
 import group03.magisound.authentication.repository.UserProfileRepository;
 import group03.magisound.media.dto.response.StoredMediaResponse;
 import group03.magisound.media.service.CloudMediaService;
+import group03.magisound.authentication.dto.request.ChangePasswordRequest;
+import group03.magisound.authentication.entity.AppUser;
+import group03.magisound.exception.BadRequestOperationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -26,6 +30,7 @@ public class ProfileService {
     private final UserProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
     private final CloudMediaService cloudMediaService;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Lấy hồ sơ đầy đủ của người dùng hiện tại.
@@ -83,6 +88,30 @@ public class ProfileService {
         }
         profileRepository.saveAndFlush(profile);
         return profileMapper.toResponse(profile);
+    }
+
+    /**
+     * Đổi mật khẩu cho người dùng hiện tại (UC-12 / TC-15).
+     */
+    @Transactional
+    public void changePassword(String email, ChangePasswordRequest request) {
+        if (!request.newPassword().equals(request.confirmPassword())) {
+            throw new BadRequestOperationException("PASSWORDS_DO_NOT_MATCH", "Mật khẩu xác nhận không khớp với mật khẩu mới");
+        }
+
+        UserProfile profile = findByEmail(email);
+        AppUser user = profile.getUser();
+
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPasswordHash())) {
+            throw new BadRequestOperationException("INVALID_CURRENT_PASSWORD", "Mật khẩu hiện tại không chính xác");
+        }
+
+        if (passwordEncoder.matches(request.newPassword(), user.getPasswordHash())) {
+            throw new BadRequestOperationException("SAME_PASSWORD", "Mật khẩu mới không được trùng với mật khẩu hiện tại");
+        }
+
+        user.changePassword(passwordEncoder.encode(request.newPassword()), LocalDateTime.now(ZoneOffset.UTC));
+        profileRepository.saveAndFlush(profile);
     }
 
     private UserProfile findByEmail(String email) {

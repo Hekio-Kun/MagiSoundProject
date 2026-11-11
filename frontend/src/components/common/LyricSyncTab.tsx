@@ -1313,7 +1313,15 @@ export function LyricSyncTab({
           className="button button-primary"
           onClick={handleApply}
           disabled={lines.length === 0}
-          style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+          title={lines.length === 0 ? "Vui lòng Parse câu hát trước khi áp dụng vào bài hát" : "Apply lyrics to track"}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            opacity: lines.length === 0 ? 0.45 : 1,
+            cursor: lines.length === 0 ? "not-allowed" : "pointer",
+            pointerEvents: lines.length === 0 ? "none" : "auto",
+          }}
         >
           <CheckIcon width={15} height={15} />
           <span>Apply to track</span>

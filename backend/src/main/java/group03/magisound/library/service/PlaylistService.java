@@ -433,7 +433,8 @@ public class PlaylistService {
                 track.getGenre() != null ? track.getGenre().getName() : null,
                 albumSummary,
                 creatorSummary,
-                track.getCreatedAt()
+                track.getCreatedAt(),
+                track.getLyrics()
         );
     }
 

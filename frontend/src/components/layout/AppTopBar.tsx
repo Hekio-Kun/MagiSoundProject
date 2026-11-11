@@ -77,7 +77,7 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
       <form className="topbar-search" onSubmit={handleSearch} role="search">
         <SearchIcon width={18} height={18} />
         <input
-          type="search"
+          type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search tracks, genres, artists..."

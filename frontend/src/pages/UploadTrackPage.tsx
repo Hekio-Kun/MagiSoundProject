@@ -68,6 +68,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
   const [showLyricMaker, setShowLyricMaker] = useState(false);
   const [copyrightAgreed, setCopyrightAgreed] = useState(false);
   const [submitterNote, setSubmitterNote] = useState("");
+  const [modalAlert, setModalAlert] = useState<string | null>(null);
   const [pageToast, setPageToast] = useState<{ message: string; type: "success" | "warning" | "error" } | null>(null);
 
   useModalScrollLock(confirmModalOpen);
@@ -754,14 +755,27 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
                 </span>
               </label>
             </div>
+            {modalAlert && (
+              <div style={{ marginTop: "12px", padding: "10px 14px", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", color: "#991b1b", fontSize: "13px", display: "flex", alignItems: "center", gap: "8px" }}>
+                <AlertIcon width={16} height={16} />
+                <span>{modalAlert}</span>
+              </div>
+            )}
             <div className="modal-actions" style={{ marginTop: "18px" }}>
-              <button className="button button-secondary" onClick={() => setConfirmModalOpen(false)} disabled={submitting}>
+              <button className="button button-secondary" onClick={() => { setConfirmModalOpen(false); setModalAlert(null); }} disabled={submitting}>
                 Cancel
               </button>
               <button
                 className="button button-primary"
-                disabled={!copyrightAgreed || submitting}
-                onClick={() => void handleConfirmSubmitReview()}
+                disabled={submitting}
+                onClick={() => {
+                  if (!copyrightAgreed) {
+                    setModalAlert("Vui lòng xác nhận bạn sở hữu bản quyền nội dung và đồng ý với điều khoản của MagiSound trước khi gửi duyệt!");
+                    return;
+                  }
+                  setModalAlert(null);
+                  void handleConfirmSubmitReview();
+                }}
                 id="btn-confirm-agree-submit"
               >
                 {submitting ? "Submitting..." : "Agree and Submit"}

@@ -4,6 +4,18 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   Reset search cancel button to prevent duplicate X
+   -------------------------------------------------------------------------- */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
    1. MusicAppShell and Layout Structure
    -------------------------------------------------------------------------- */
 .music-app-shell {
@@ -3428,11 +3440,11 @@ body.modal-open .ops-shell-main {
 }
 
 .profile-settings-role {
-  padding: 6px 10px;
-  border: 1px solid #a5f3fc;
+  padding: 6px 12px;
+  border: 1px solid #0284c7;
   border-radius: 999px;
-  background: rgba(236, 254, 255, 0.85);
-  color: #ffffff;
+  background: #e0f2fe;
+  color: #0369a1;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.05em;
@@ -3479,8 +3491,8 @@ body.modal-open .ops-shell-main {
 }
 
 .profile-section-kicker {
-  color: #71717a;
-  font-size: 9px;
+  color: #334155;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: .13em;
 }
@@ -3488,14 +3500,14 @@ body.modal-open .ops-shell-main {
 .profile-about-card h2,
 .profile-card-heading h2 {
   margin: 7px 0 0;
-  color: #000000;
+  color: #0f172a;
   font-size: 20px;
   letter-spacing: -.025em;
 }
 
 .profile-about-card > p {
   margin: 20px 0;
-  color: #475467;
+  color: #334155;
   font-size: 13px;
   line-height: 1.75;
   white-space: pre-wrap;
@@ -3506,9 +3518,10 @@ body.modal-open .ops-shell-main {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #ffffff;
+  color: #0284c7;
   font-size: 12px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .profile-card-heading {

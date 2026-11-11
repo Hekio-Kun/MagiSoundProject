@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
 import { AuthApiError, getAuthErrorMessage } from "../api/auth";
-import { profileApi, type ProfileDetails, type UpdateProfileInput } from "../api/profile";
-import { AlertIcon, CheckIcon, ClockIcon, MailIcon, UploadIcon, UserIcon } from "../icons";
+import { profileApi, type ChangePasswordInput, type ProfileDetails, type UpdateProfileInput } from "../api/profile";
+import { AlertIcon, CheckIcon, ClockIcon, CloseIcon, LockIcon, MailIcon, UploadIcon, UserIcon } from "../icons";
 
 type Props = { onProfileUpdated: (profile: ProfileDetails) => void };
 type FormState = { username: string; displayName: string; bio: string; dateOfBirth: string; countryCode: string };
@@ -48,6 +48,15 @@ export function ProfilePage({ onProfileUpdated }: Props) {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState("");
   const [avatarFailed, setAvatarFailed] = useState(false);
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [passwordForm, setPasswordForm] = useState<ChangePasswordInput>({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [passwordSubmitting, setPasswordSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const loadProfile = useCallback(async () => {
@@ -140,9 +149,58 @@ export function ProfilePage({ onProfileUpdated }: Props) {
       onProfileUpdated(result);
     } catch (error) {
       if (error instanceof AuthApiError && Object.keys(error.fieldErrors).length) setFieldErrors(error.fieldErrors as FieldErrors);
-      setApiError(getAuthErrorMessage(error, "Unable to update your profile. Please try again."));
+      const msg = getAuthErrorMessage(error, "Unable to update your profile. Please try again.");
+      setApiError(msg);
+      if (
+        (error instanceof AuthApiError && (error.status === 409 || error.code === "USERNAME_ALREADY_EXISTS")) ||
+        msg.toLowerCase().includes("username already exists") ||
+        msg.toLowerCase().includes("trùng")
+      ) {
+        setFieldErrors((prev) => ({
+          ...prev,
+          username: "Tên người dùng (username) này đã tồn tại trong hệ thống. Vui lòng chọn username khác."
+        }));
+      }
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleChangePassword = async (e: FormEvent) => {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordSuccess("");
+
+    if (!passwordForm.currentPassword) {
+      setPasswordError("Vui lòng nhập mật khẩu hiện tại.");
+      return;
+    }
+    if (!passwordForm.newPassword || passwordForm.newPassword.length < 8) {
+      setPasswordError("Mật khẩu mới phải có tối thiểu 8 ký tự.");
+      return;
+    }
+    if (!/^(?=.*[A-Z])(?=.*\d).+$/.test(passwordForm.newPassword)) {
+      setPasswordError("Mật khẩu mới phải chứa ít nhất 1 chữ in hoa và 1 chữ số.");
+      return;
+    }
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordError("Mật khẩu xác nhận không khớp với mật khẩu mới.");
+      return;
+    }
+
+    setPasswordSubmitting(true);
+    try {
+      const res = await profileApi.changePassword(passwordForm);
+      setPasswordSuccess(res.message || "Đổi mật khẩu thành công!");
+      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setTimeout(() => {
+        setPasswordModalOpen(false);
+        setPasswordSuccess("");
+      }, 2000);
+    } catch (err) {
+      setPasswordError(getAuthErrorMessage(err, "Đổi mật khẩu thất bại. Vui lòng kiểm tra lại mật khẩu hiện tại."));
+    } finally {
+      setPasswordSubmitting(false);
     }
   };
 
@@ -154,7 +212,15 @@ export function ProfilePage({ onProfileUpdated }: Props) {
     <section className="profile-settings-hero">
       <ProfileAvatar url={displayedAvatar} failed={avatarFailed} onError={() => setAvatarFailed(true)} />
       <div className="profile-hero-copy"><span className="eyebrow">PERSONAL PROFILE</span><h1>{profile.displayName}</h1><p>@{profile.username} · Member since {new Date(profile.createdAt).getFullYear()}</p></div>
-      <div className="profile-hero-actions"><span className="profile-settings-role">{profile.role}</span>{!editing ? <button className="button button-primary" onClick={beginEdit}>Edit profile</button> : null}</div>
+      <div className="profile-hero-actions">
+        <span className="profile-settings-role">{profile.role}</span>
+        {!editing ? (
+          <div style={{ display: "flex", gap: "8px" }}>
+            <button className="button button-primary" onClick={beginEdit}>Edit profile</button>
+            <button className="button button-secondary" onClick={() => setPasswordModalOpen(true)}>Change password</button>
+          </div>
+        ) : null}
+      </div>
     </section>
 
     {saved ? <div className="profile-form-success" role="status"><CheckIcon width={17} height={17} /><span>Profile updated successfully.</span></div> : null}
@@ -177,6 +243,81 @@ export function ProfilePage({ onProfileUpdated }: Props) {
       </div>
       <div className="profile-form-actions"><button type="button" className="button button-secondary" onClick={cancelEdit} disabled={saving}>Cancel</button><button type="submit" className="button button-primary" disabled={saving}>{saving ? "Saving…" : "Save changes"}</button></div>
     </form>}
+
+    {passwordModalOpen && (
+      <div className="modal-overlay" onClick={() => setPasswordModalOpen(false)} style={{ zIndex: 1100 }}>
+        <div className="modal-card" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "460px", width: "100%", padding: "26px" }}>
+          <div className="modal-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <LockIcon width={18} height={18} />
+              <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>Đổi mật khẩu</h2>
+            </div>
+            <button type="button" onClick={() => setPasswordModalOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b" }}>
+              <CloseIcon width={16} height={16} />
+            </button>
+          </div>
+          {passwordSuccess ? (
+            <div className="profile-form-success" role="status" style={{ marginBottom: "16px" }}>
+              <CheckIcon width={17} height={17} />
+              <span>{passwordSuccess}</span>
+            </div>
+          ) : (
+            <form onSubmit={handleChangePassword}>
+              {passwordError && (
+                <div className="profile-form-alert" role="alert" style={{ marginBottom: "14px" }}>
+                  <AlertIcon width={16} height={16} />
+                  <span>{passwordError}</span>
+                </div>
+              )}
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                <div className="profile-form-field">
+                  <label htmlFor="current-pwd">Mật khẩu hiện tại</label>
+                  <input
+                    id="current-pwd"
+                    type="password"
+                    value={passwordForm.currentPassword}
+                    onChange={(e) => setPasswordForm((prev) => ({ ...prev, currentPassword: e.target.value }))}
+                    placeholder="Nhập mật khẩu hiện tại"
+                    required
+                  />
+                </div>
+                <div className="profile-form-field">
+                  <label htmlFor="new-pwd">Mật khẩu mới</label>
+                  <input
+                    id="new-pwd"
+                    type="password"
+                    value={passwordForm.newPassword}
+                    onChange={(e) => setPasswordForm((prev) => ({ ...prev, newPassword: e.target.value }))}
+                    placeholder="Tối thiểu 8 ký tự, 1 hoa, 1 số"
+                    required
+                  />
+                  <small style={{ color: "#64748b", fontSize: "11px" }}>Tối thiểu 8 ký tự, bao gồm ít nhất 1 chữ hoa và 1 chữ số.</small>
+                </div>
+                <div className="profile-form-field">
+                  <label htmlFor="confirm-pwd">Xác nhận mật khẩu mới</label>
+                  <input
+                    id="confirm-pwd"
+                    type="password"
+                    value={passwordForm.confirmPassword}
+                    onChange={(e) => setPasswordForm((prev) => ({ ...prev, confirmPassword: e.target.value }))}
+                    placeholder="Nhập lại mật khẩu mới"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="modal-actions" style={{ marginTop: "20px", display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+                <button type="button" className="button button-secondary" onClick={() => setPasswordModalOpen(false)} disabled={passwordSubmitting}>
+                  Hủy
+                </button>
+                <button type="submit" className="button button-primary" disabled={passwordSubmitting}>
+                  {passwordSubmitting ? "Đang lưu..." : "Xác nhận đổi"}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    )}
   </div>;
 }
 

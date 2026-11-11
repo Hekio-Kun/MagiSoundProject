@@ -62,6 +62,7 @@ class PublicSearchServiceTest {
                 "/audio.mp3", "/cover.jpg", 200000, 100L, "PUBLISHED",
                 "pop", "Pop", null,
                 new TrackResponse.TrackCreatorSummary(10L, "Artist Name", null),
+                null,
                 null
         );
 

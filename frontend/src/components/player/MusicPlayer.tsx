@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { NextIcon, PauseIcon, PlayIcon, PreviousIcon, QueueIcon, RepeatIcon, ShuffleIcon, VolumeIcon } from "../../icons";
+import { HeartFillIcon, HeartIcon, NextIcon, PauseIcon, PlayIcon, PreviousIcon, QueueIcon, RepeatIcon, ShuffleIcon, VolumeIcon } from "../../icons";
+import { useFavorites } from "../../context/FavoritesContext";
 import type { LandingTrack } from "../../types";
 
 /**
@@ -90,6 +91,27 @@ export function MusicPlayer({
   const [localQueueOpen, setLocalQueueOpen] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorited = isFavorite(track.id);
+
+  const handleFavoriteClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!isAuthenticated) {
+      window.location.hash = "#/login";
+      return;
+    }
+    if (favoriteLoading) return;
+    try {
+      setFavoriteLoading(true);
+      await toggleFavorite(track.id);
+    } catch (err) {
+      console.error("Failed to toggle favorite:", err);
+    } finally {
+      setFavoriteLoading(false);
+    }
+  };
 
   const recordedRef = useRef(false);
   const lastTimeRef = useRef<number | null>(null);
@@ -370,6 +392,28 @@ export function MusicPlayer({
             </span>
           )}
         </div>
+        <button
+          type="button"
+          className="player-icon player-favorite-btn"
+          onClick={handleFavoriteClick}
+          aria-label={favorited ? "Remove from Favorites" : "Add to Favorites"}
+          title={favorited ? "Favorited" : "Favorite"}
+          style={{
+            color: favorited ? "#ef4444" : "var(--sw-muted, #64748b)",
+            marginLeft: "8px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: "6px",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            transition: "transform 0.15s ease, color 0.15s ease",
+          }}
+        >
+          {favorited ? <HeartFillIcon width={19} height={19} /> : <HeartIcon width={19} height={19} />}
+        </button>
       </div>
 
       <div className="player-center">

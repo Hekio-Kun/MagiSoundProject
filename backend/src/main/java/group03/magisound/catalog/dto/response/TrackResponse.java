@@ -19,7 +19,8 @@ public record TrackResponse(
         String genreName,
         TrackAlbumSummary album,
         TrackCreatorSummary creator,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        String lyrics
 ) {
     public record TrackAlbumSummary(
             Long id,
