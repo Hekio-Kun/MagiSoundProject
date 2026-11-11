@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CreatorCard, TrackCard } from "../components/common/MusicCards";
 import { featuredCreators, tracks } from "../data";
 import { catalogApi } from "../api/catalog";
-import { CloseIcon, CompassIcon, SearchIcon, TrendingUpIcon } from "../icons";
+import { SearchIcon, TrendingUpIcon } from "../icons";
 import type { LandingTrack } from "../types";
 
 type Props = {
@@ -69,34 +69,6 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
 
   return (
     <div className="search-page">
-      <section className="search-hero">
-        <div className="search-hero-copy">
-          <span className="search-kicker"><CompassIcon width={15} height={15} /> DISCOVER THE CATALOG</span>
-          <h1>Find your next <span>favorite sound.</span></h1>
-          <p>Search public tracks and Vietnamese creators in one place.</p>
-        </div>
-        <div className="search-input-panel">
-          <label htmlFor="catalog-search">What do you want to listen to?</label>
-          <div className="search-big-bar">
-            <SearchIcon width={21} height={21} />
-            <input
-              id="catalog-search"
-              type="text"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Track or creator..."
-              autoFocus
-              autoComplete="off"
-            />
-            {searchTerm ? <button type="button" onClick={() => setSearchTerm("")} aria-label="Clear search"><CloseIcon width={16} height={16} /></button> : null}
-          </div>
-          <div className="search-quick-row">
-            <span>Try</span>
-            {quickSearches.map((keyword) => <button key={keyword} onClick={() => setSearchTerm(keyword)}>{keyword}</button>)}
-          </div>
-        </div>
-      </section>
-
       {query && (
         <div className="search-toolbar">
           <div className="search-result-summary"><strong>{resultCount}</strong><span>results for “{searchTerm.trim()}”</span></div>
@@ -132,8 +104,32 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
       {!query ? (
         <div className="search-prompt-state">
           <span className="search-prompt-icon"><TrendingUpIcon width={25} height={25} /></span>
-          <div><span className="search-prompt-label">TRENDING SEARCH</span><h2>Start with what listeners love today</h2><p>Use a title or creator name to explore the public catalog.</p></div>
-          <button onClick={() => setSearchTerm("Sơn Tùng M-TP")}>Explore Sơn Tùng M-TP</button>
+          <div>
+            <span className="search-prompt-label">TRENDING SEARCH</span>
+            <h2>Start with what listeners love today</h2>
+            <p>Use the search bar on the top header or choose a popular search topic below.</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "12px" }}>
+              {quickSearches.map((keyword) => (
+                <button
+                  key={keyword}
+                  type="button"
+                  onClick={() => setSearchTerm(keyword)}
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: "999px",
+                    border: "1px solid #e2e8f0",
+                    background: "#ffffff",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: "#334155",
+                    cursor: "pointer",
+                  }}
+                >
+                  {keyword}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       ) : !hasResults ? (
         <div className="state-empty-box">

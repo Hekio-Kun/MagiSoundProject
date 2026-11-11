@@ -16,6 +16,21 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(unreadNotifications);
   const actionsRef = useRef<HTMLDivElement>(null);
+  const searchTimeoutRef = useRef<number | null>(null);
+
+  // Sync header search input from URL hash whenever navigating
+  useEffect(() => {
+    const syncQueryFromHash = () => {
+      if (window.location.hash.startsWith("#/search")) {
+        const hashQuery = window.location.hash.split("?")[1] || "";
+        const params = new URLSearchParams(hashQuery);
+        setQuery(params.get("q") || "");
+      }
+    };
+    syncQueryFromHash();
+    window.addEventListener("hashchange", syncQueryFromHash);
+    return () => window.removeEventListener("hashchange", syncQueryFromHash);
+  }, []);
 
   useEffect(() => setUnreadCount(unreadNotifications), [unreadNotifications]);
 
@@ -39,11 +54,44 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
     };
   }, [userMenuOpen]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setQuery(val);
+
+    if (searchTimeoutRef.current) {
+      window.clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = window.setTimeout(() => {
+      const trimmed = val.trim();
+      if (trimmed) {
+        onNavigate(`/search?q=${encodeURIComponent(trimmed)}`);
+      } else if (window.location.hash.startsWith("#/search")) {
+        onNavigate("/search");
+      }
+    }, 250);
+  };
+
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
+    if (searchTimeoutRef.current) {
+      window.clearTimeout(searchTimeoutRef.current);
+    }
     const q = query.trim();
     if (q) {
       onNavigate(`/search?q=${encodeURIComponent(q)}`);
+    } else {
+      onNavigate("/search");
+    }
+  };
+
+  const handleClear = () => {
+    setQuery("");
+    if (searchTimeoutRef.current) {
+      window.clearTimeout(searchTimeoutRef.current);
+    }
+    if (window.location.hash.startsWith("#/search")) {
+      onNavigate("/search");
     }
   };
 
@@ -79,7 +127,7 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
         <input
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleInputChange}
           placeholder="Search tracks, genres, artists..."
           aria-label="Search music"
         />
@@ -87,7 +135,7 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
           <button
             type="button"
             className="search-clear-btn"
-            onClick={() => setQuery("")}
+            onClick={handleClear}
             aria-label="Clear search keyword"
           >
             <CloseIcon width={14} height={14} />
