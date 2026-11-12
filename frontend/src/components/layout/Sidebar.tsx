@@ -1,4 +1,4 @@
-import { ClockIcon, CompassIcon, DashboardIcon, FilterIcon, HeartIcon, LibraryIcon, PlusIcon, ShieldIcon, UploadIcon } from "../../icons";
+import { ClockIcon, CompassIcon, DashboardIcon, FilterIcon, HeartIcon, LibraryIcon, MusicIcon, PlusIcon, ShieldIcon, UploadIcon, UsersIcon } from "../../icons";
 import type { CurrentUser } from "../../types";
 
 type Props = {
@@ -26,12 +26,26 @@ export function Sidebar({ activeRoute, onNavigate, onCreatePlaylist, isAuthentic
           <div className="nav-group">
             <span className="nav-group-title">SYSTEM ADMINISTRATION</span>
             <button
-              className={`nav-item ${isCurrent("/admin") ? "nav-item--active" : ""}`}
+              className={`nav-item ${activeRoute === "/admin/dashboard" || activeRoute === "/admin" ? "nav-item--active" : ""}`}
               onClick={() => onNavigate("/admin/dashboard")}
             >
               <ShieldIcon />
               <span>Administration overview</span>
               <small className="sidebar-badge">ADMIN</small>
+            </button>
+            <button
+              className={`nav-item ${isCurrent("/admin/staffs") || isCurrent("/admin/staff") ? "nav-item--active" : ""}`}
+              onClick={() => onNavigate("/admin/staffs")}
+            >
+              <UsersIcon />
+              <span>Staff Accounts</span>
+            </button>
+            <button
+              className={`nav-item ${isCurrent("/admin/genres") ? "nav-item--active" : ""}`}
+              onClick={() => onNavigate("/admin/genres")}
+            >
+              <MusicIcon />
+              <span>Genre Management</span>
             </button>
             <button
               className={`nav-item ${isCurrent("/staff") ? "nav-item--active" : ""}`}

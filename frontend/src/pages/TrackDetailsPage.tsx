@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { catalogApi } from "../api/catalog";
+import { lyricsApi } from "../api/lyrics";
 import { SectionHeader, TrackCard } from "../components/common/MusicCards";
 import { covers } from "../data";
 import { useModalScrollLock } from "../hooks/useModalScrollLock";
@@ -60,16 +61,42 @@ export function TrackDetailsPage({
   const [submittingAction, setSubmittingAction] = useState(false);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [lyricsContent, setLyricsContent] = useState<string | null>(null);
+  const [hasOfficialLyric, setHasOfficialLyric] = useState(false);
 
   useEffect(() => {
     let active = true;
     setLoading(true);
     setError(null);
     setTrack(null);
+    setLyricsContent(null);
+    setHasOfficialLyric(false);
     void catalogApi.getTrackById(trackId)
-      .then((item) => { if (active) setTrack(item); })
+      .then((item) => {
+        if (!active) return;
+        setTrack(item);
+        if (item?.lyrics) {
+          setLyricsContent(item.lyrics);
+          setHasOfficialLyric(true);
+        }
+      })
       .catch(() => { if (active) setError("Track not found or unavailable."); })
       .finally(() => { if (active) setLoading(false); });
+
+    // Also fetch from lyrics API in case track.lyrics is not directly mapped
+    void lyricsApi.getTrackLyrics(trackId)
+      .then((bundle) => {
+        if (!active) return;
+        if (bundle.officialLyric?.lyricContent) {
+          setLyricsContent(bundle.officialLyric.lyricContent);
+          setHasOfficialLyric(true);
+        } else if (bundle.userPersonalLyric?.lyricContent) {
+          setLyricsContent(bundle.userPersonalLyric.lyricContent);
+          setHasOfficialLyric(false);
+        }
+      })
+      .catch(() => {});
+
     return () => { active = false; };
   }, [trackId]);
 
@@ -167,6 +194,19 @@ export function TrackDetailsPage({
   const genreLabel = track.genreName ?? track.genreSlug ?? "Uncategorized";
   const publicationLabel = track.publicationStatus === "PUBLISHED" ? "Published" : track.publicationStatus ?? "Published";
 
+  const displayLyrics = useMemo(() => {
+    if (!lyricsContent) return "";
+    const hasTimestamps = /\[\d{2}:\d{2}/.test(lyricsContent);
+    if (hasTimestamps) {
+      return lyricsContent
+        .split("\n")
+        .map((l) => l.replace(/^\[\d{2}:\d{2}(?:\.\d{2,3})?\]\s?/, "").trim())
+        .filter((l) => l.length > 0)
+        .join("\n");
+    }
+    return lyricsContent.trim();
+  }, [lyricsContent]);
+
   return (
     <div className="track-page-v2">
       <nav className="track-breadcrumb" aria-label="Breadcrumb">
@@ -211,9 +251,9 @@ export function TrackDetailsPage({
         <section className="track-lyrics-panel">
           <header>
             <div><span className="track-section-icon"><FileTextIcon width={19} height={19} /></span><span><small>LYRICS</small><h2>{track.title}</h2></span></div>
-            {track.lyrics ? <span className="official-lyrics-badge"><CheckIcon width={13} height={13} /> Official</span> : null}
+            {hasOfficialLyric ? <span className="official-lyrics-badge"><CheckIcon width={13} height={13} /> Official</span> : null}
           </header>
-          {track.lyrics ? <pre>{track.lyrics}</pre> : <div className="track-lyrics-empty"><FileTextIcon /><strong>No lyrics available</strong><span>Official lyrics have not been provided for this track.</span></div>}
+          {displayLyrics ? <pre>{displayLyrics}</pre> : <div className="track-lyrics-empty"><FileTextIcon /><strong>No lyrics available</strong><span>Official lyrics have not been provided for this track.</span></div>}
           <footer>Lyrics are displayed in plain text format.</footer>
         </section>
 

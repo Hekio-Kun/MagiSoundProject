@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CreatorCard, TrackCard } from "../components/common/MusicCards";
 import { featuredCreators, tracks } from "../data";
 import { catalogApi } from "../api/catalog";
-import { SearchIcon, TrendingUpIcon } from "../icons";
+import { SearchIcon } from "../icons";
 import type { LandingTrack } from "../types";
 
 type Props = {
@@ -65,7 +65,6 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
 
   const hasResults = matchedTracks.length > 0 || matchedCreators.length > 0;
   const resultCount = matchedTracks.length + matchedCreators.length;
-  const quickSearches = ["Sơn Tùng M-TP", "HIEUTHUHAI", "MCK", "YOASOBI", "Pop", "Acoustic"];
 
   return (
     <div className="search-page">
@@ -102,34 +101,10 @@ export function SearchPage({ currentTrack, playing, onPlayTrack, onNavigate, ini
       )}
 
       {!query ? (
-        <div className="search-prompt-state">
-          <span className="search-prompt-icon"><TrendingUpIcon width={25} height={25} /></span>
-          <div>
-            <span className="search-prompt-label">TRENDING SEARCH</span>
-            <h2>Start with what listeners love today</h2>
-            <p>Use the search bar on the top header or choose a popular search topic below.</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "12px" }}>
-              {quickSearches.map((keyword) => (
-                <button
-                  key={keyword}
-                  type="button"
-                  onClick={() => setSearchTerm(keyword)}
-                  style={{
-                    padding: "6px 14px",
-                    borderRadius: "999px",
-                    border: "1px solid #e2e8f0",
-                    background: "#ffffff",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: "#334155",
-                    cursor: "pointer",
-                  }}
-                >
-                  {keyword}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div className="state-empty-box" style={{ padding: "60px 20px" }}>
+          <span className="search-empty-icon"><SearchIcon width={32} height={32} /></span>
+          <p className="empty-title">Search MagiSound</p>
+          <p className="empty-desc">Find your favorite songs, artists, albums, or genres using the search bar above.</p>
         </div>
       ) : !hasResults ? (
         <div className="state-empty-box">

@@ -226,10 +226,10 @@ public class AdminStatisticsService {
         long staffs = userRepository.countByRole_CodeIgnoreCase("STAFF");
         long admins = userRepository.countByRole_CodeIgnoreCase("ADMIN");
 
-        long listeners = Math.max(0, totalUsers - totalCreators);
+        long listeners = Math.max(0, totalUsers - totalCreators - staffs - admins);
         double listenerPercentage = totalUsers > 0
                 ? Math.round(((double) listeners / totalUsers * 100.0) * 10.0) / 10.0
-                : 100.0;
+                : 0.0;
         double creatorPercentage = totalUsers > 0
                 ? Math.round(((double) totalCreators / totalUsers * 100.0) * 10.0) / 10.0
                 : 0.0;
@@ -261,7 +261,14 @@ public class AdminStatisticsService {
                     : extractNameFromEmail(u.getEmail());
 
             String initials = getInitials(displayName);
-            String role = (trackRepository.countByUploaderUserId(u.getId()) > 0) ? "Creator" : "Listener";
+
+            String roleCode = u.getRole() != null ? u.getRole().getCode() : "LISTENER";
+            String role = switch (roleCode.toUpperCase(Locale.ROOT)) {
+                case "ADMIN" -> "Admin";
+                case "STAFF" -> "Staff";
+                default -> (trackRepository.countByUploaderUserId(u.getId()) > 0) ? "Creator" : "Listener";
+            };
+
             String status = u.getStatus() == UserStatus.ACTIVE ? "Verified" : "Pending";
             String avatarUrl = profile != null ? profile.getAvatarUrl() : null;
 

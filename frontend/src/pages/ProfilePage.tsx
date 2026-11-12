@@ -158,8 +158,9 @@ export function ProfilePage({ onProfileUpdated }: Props) {
       ) {
         setFieldErrors((prev) => ({
           ...prev,
-          username: "Tên người dùng (username) này đã tồn tại trong hệ thống. Vui lòng chọn username khác."
+          username: "This username is already taken. Please choose another username."
         }));
+        setApiError("This username is already taken. Please choose another username.");
       }
     } finally {
       setSaving(false);
@@ -172,33 +173,33 @@ export function ProfilePage({ onProfileUpdated }: Props) {
     setPasswordSuccess("");
 
     if (!passwordForm.currentPassword) {
-      setPasswordError("Vui lòng nhập mật khẩu hiện tại.");
+      setPasswordError("Please enter your current password.");
       return;
     }
     if (!passwordForm.newPassword || passwordForm.newPassword.length < 8) {
-      setPasswordError("Mật khẩu mới phải có tối thiểu 8 ký tự.");
+      setPasswordError("New password must be at least 8 characters.");
       return;
     }
     if (!/^(?=.*[A-Z])(?=.*\d).+$/.test(passwordForm.newPassword)) {
-      setPasswordError("Mật khẩu mới phải chứa ít nhất 1 chữ in hoa và 1 chữ số.");
+      setPasswordError("New password must contain at least 1 uppercase letter and 1 digit.");
       return;
     }
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      setPasswordError("Mật khẩu xác nhận không khớp với mật khẩu mới.");
+      setPasswordError("Confirmation password does not match new password.");
       return;
     }
 
     setPasswordSubmitting(true);
     try {
       const res = await profileApi.changePassword(passwordForm);
-      setPasswordSuccess(res.message || "Đổi mật khẩu thành công!");
+      setPasswordSuccess(res.message || "Password changed successfully!");
       setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
       setTimeout(() => {
         setPasswordModalOpen(false);
         setPasswordSuccess("");
       }, 2000);
     } catch (err) {
-      setPasswordError(getAuthErrorMessage(err, "Đổi mật khẩu thất bại. Vui lòng kiểm tra lại mật khẩu hiện tại."));
+      setPasswordError(getAuthErrorMessage(err, "Failed to change password. Please check your current password."));
     } finally {
       setPasswordSubmitting(false);
     }
@@ -250,7 +251,7 @@ export function ProfilePage({ onProfileUpdated }: Props) {
           <div className="modal-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <LockIcon width={18} height={18} />
-              <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>Đổi mật khẩu</h2>
+              <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>Change password</h2>
             </div>
             <button type="button" onClick={() => setPasswordModalOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b" }}>
               <CloseIcon width={16} height={16} />
@@ -271,46 +272,46 @@ export function ProfilePage({ onProfileUpdated }: Props) {
               )}
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 <div className="profile-form-field">
-                  <label htmlFor="current-pwd">Mật khẩu hiện tại</label>
+                  <label htmlFor="current-pwd">Current password</label>
                   <input
                     id="current-pwd"
                     type="password"
                     value={passwordForm.currentPassword}
                     onChange={(e) => setPasswordForm((prev) => ({ ...prev, currentPassword: e.target.value }))}
-                    placeholder="Nhập mật khẩu hiện tại"
+                    placeholder="Enter current password"
                     required
                   />
                 </div>
                 <div className="profile-form-field">
-                  <label htmlFor="new-pwd">Mật khẩu mới</label>
+                  <label htmlFor="new-pwd">New password</label>
                   <input
                     id="new-pwd"
                     type="password"
                     value={passwordForm.newPassword}
                     onChange={(e) => setPasswordForm((prev) => ({ ...prev, newPassword: e.target.value }))}
-                    placeholder="Tối thiểu 8 ký tự, 1 hoa, 1 số"
+                    placeholder="At least 8 chars, 1 uppercase, 1 digit"
                     required
                   />
-                  <small style={{ color: "#64748b", fontSize: "11px" }}>Tối thiểu 8 ký tự, bao gồm ít nhất 1 chữ hoa và 1 chữ số.</small>
+                  <small style={{ color: "#64748b", fontSize: "11px" }}>Minimum 8 characters, with at least 1 uppercase letter and 1 digit.</small>
                 </div>
                 <div className="profile-form-field">
-                  <label htmlFor="confirm-pwd">Xác nhận mật khẩu mới</label>
+                  <label htmlFor="confirm-pwd">Confirm new password</label>
                   <input
                     id="confirm-pwd"
                     type="password"
                     value={passwordForm.confirmPassword}
                     onChange={(e) => setPasswordForm((prev) => ({ ...prev, confirmPassword: e.target.value }))}
-                    placeholder="Nhập lại mật khẩu mới"
+                    placeholder="Re-enter new password"
                     required
                   />
                 </div>
               </div>
               <div className="modal-actions" style={{ marginTop: "20px", display: "flex", justifyContent: "flex-end", gap: "10px" }}>
                 <button type="button" className="button button-secondary" onClick={() => setPasswordModalOpen(false)} disabled={passwordSubmitting}>
-                  Hủy
+                  Cancel
                 </button>
                 <button type="submit" className="button button-primary" disabled={passwordSubmitting}>
-                  {passwordSubmitting ? "Đang lưu..." : "Xác nhận đổi"}
+                  {passwordSubmitting ? "Saving..." : "Change password"}
                 </button>
               </div>
             </form>

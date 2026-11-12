@@ -70,7 +70,7 @@ export type PageResponse<T> = {
 export const moderationApi = {
   getStats: () => apiFetch<SubmissionStats>("/moderation/submissions/stats"),
 
-  getQueue: (params: { status?: string; search?: string; page?: number; size?: number }) => {
+  getQueue: (params: { status?: string; search?: string; page?: number; size?: number; sort?: string }) => {
     const searchParams = new URLSearchParams();
     if (params.status && params.status !== "ALL") {
       searchParams.set("status", params.status);
@@ -80,6 +80,7 @@ export const moderationApi = {
     }
     searchParams.set("page", String(params.page ?? 0));
     searchParams.set("size", String(params.size ?? 10));
+    searchParams.set("sort", params.sort ?? "submittedAt,desc");
 
     return apiFetch<PageResponse<SubmissionQueueItem>>(`/moderation/submissions?${searchParams.toString()}`);
   },

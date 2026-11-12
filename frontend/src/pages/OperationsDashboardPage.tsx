@@ -104,7 +104,7 @@ function formatRelativeTime(isoString?: string | null): string {
   }
 }
 
-export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) {
+export function AdminDashboardPage({ onNavigate }: DashboardProps) {
   const [range, setRange] = useState("7d");
   const [stats, setStats] = useState<SystemStatisticsResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -129,14 +129,14 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
 
   const overview = stats?.overview;
   const userGrowth = stats?.userGrowth ?? [];
-  const maxGrowth = Math.max(...userGrowth.map((g) => g.count), 5);
+  const maxGrowth = Math.max(...userGrowth.map((g) => g.count), 1);
 
   return (
     <div className="ops-dashboard ops-dashboard--admin">
       <DashboardHeading
         eyebrow="ADMINISTRATION"
         title="System Administration"
-        description="Review users, published content, reports, and platform activity."
+        description="Real-time system telemetry and platform data from PostgreSQL database."
         icon={<ShieldIcon width={15} height={15} />}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -166,6 +166,37 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
         </div>
       </DashboardHeading>
 
+      {/* Quick Access Shortcuts */}
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px", flexWrap: "wrap" }}>
+        <button
+          type="button"
+          className="button button-secondary"
+          onClick={() => onNavigate("/admin/staffs")}
+          style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "13px" }}
+        >
+          <UserIcon width={14} height={14} />
+          <span>Staff Accounts ({stats?.roleDistribution?.staffs ?? 0})</span>
+        </button>
+        <button
+          type="button"
+          className="button button-secondary"
+          onClick={() => onNavigate("/admin/genres")}
+          style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "13px" }}
+        >
+          <DiscIcon width={14} height={14} />
+          <span>Genre Management ({overview?.activeGenres ?? 0})</span>
+        </button>
+        <button
+          type="button"
+          className="button button-secondary"
+          onClick={() => onNavigate("/staff/dashboard")}
+          style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "13px" }}
+        >
+          <FlagIcon width={14} height={14} />
+          <span>Pending Submissions ({overview?.pendingReviews ?? 0})</span>
+        </button>
+      </div>
+
       {error ? (
         <div className="ops-alert ops-alert--error" style={{ marginBottom: "20px" }}>
           <span>{error}</span>
@@ -185,8 +216,8 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
           icon={<DiscIcon />}
           label="Published tracks"
           value={overview ? overview.publishedTracks.toLocaleString() : "..."}
-          change={overview ? `${overview.activeGenres} genres` : "..."}
-          note={overview ? `${overview.newTracksInPeriod} newly added` : "Catalog active"}
+          change={overview ? `${overview.activeGenres} active genres` : "..."}
+          note={overview ? `${overview.newTracksInPeriod} added in this period` : "Catalog active"}
           tone="violet"
         />
         <DashboardMetric
@@ -200,7 +231,7 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
               : "..."
           }
           change={overview ? `${overview.totalCreators} artists` : "..."}
-          note="Across all platform tracks"
+          note="Live count across catalog"
           tone="green"
         />
         <DashboardMetric
@@ -208,7 +239,7 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
           label="Pending reviews"
           value={overview ? String(overview.pendingReviews) : "..."}
           change={overview ? `${overview.pendingReports} reports` : "..."}
-          note="Tracks awaiting review"
+          note="Submissions awaiting audit"
           tone="amber"
         />
       </section>
@@ -232,40 +263,52 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
               <span>0</span>
             </div>
             <div className="ops-bars">
-              {userGrowth.length > 0
-                ? userGrowth.map((item, index) => {
-                    const heightPercent =
-                      maxGrowth > 0
-                        ? Math.max(item.count > 0 ? 15 : 4, Math.round((item.count / maxGrowth) * 100))
-                        : 4;
-                    return (
-                      <div className="ops-bar-column" key={`${item.date}-${index}`} title={`${item.date}: ${item.count} users`}>
-                        <div className="ops-bar-track">
-                          <i style={{ height: `${heightPercent}%` }} />
-                        </div>
-                        <span>{item.label}</span>
-                      </div>
-                    );
-                  })
-                : [38, 51, 46, 64, 58, 76, 88].map((height, index) => (
-                    <div className="ops-bar-column" key={`${height}-${index}`}>
-                      <div className="ops-bar-track"><i style={{ height: `${height}%` }} /></div>
-                      <span>{["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][index]}</span>
+              {loading ? (
+                Array.from({ length: 7 }).map((_, idx) => (
+                  <div className="ops-bar-column" key={`skel-${idx}`}>
+                    <div className="ops-bar-track">
+                      <i style={{ height: "15%", opacity: 0.3 }} />
                     </div>
-                  ))}
+                    <span>--</span>
+                  </div>
+                ))
+              ) : userGrowth.length > 0 ? (
+                userGrowth.map((item, index) => {
+                  const heightPercent =
+                    maxGrowth > 0
+                      ? Math.max(item.count > 0 ? 15 : 4, Math.round((item.count / maxGrowth) * 100))
+                      : 4;
+                  return (
+                    <div className="ops-bar-column" key={`${item.date}-${index}`} title={`${item.date}: ${item.count} users`}>
+                      <div className="ops-bar-track">
+                        <i style={{ height: `${heightPercent}%` }} />
+                      </div>
+                      <span>{item.label}</span>
+                    </div>
+                  );
+                })
+              ) : (
+                <div style={{ textAlign: "center", width: "100%", padding: "20px", color: "var(--ops-text-muted)" }}>
+                  No registration activity in this period.
+                </div>
+              )}
             </div>
           </div>
           <div className="ops-chart-summary">
             <span>
               <i className="is-primary" />
-              Listeners <b>{stats?.roleDistribution?.listenerPercentage ?? 78}%</b>
+              Listeners <b>{stats?.roleDistribution ? `${stats.roleDistribution.listeners} (${stats.roleDistribution.listenerPercentage}%)` : "..."}</b>
             </span>
             <span>
               <i className="is-accent" />
-              Creators <b>{stats?.roleDistribution?.creatorPercentage ?? 22}%</b>
+              Creators <b>{stats?.roleDistribution ? `${stats.roleDistribution.creators} (${stats.roleDistribution.creatorPercentage}%)` : "..."}</b>
+            </span>
+            <span>
+              <i style={{ background: "#f59e0b" }} />
+              Staff & Admins <b>{stats?.roleDistribution ? `${(stats.roleDistribution.staffs || 0) + (stats.roleDistribution.admins || 0)}` : "..."}</b>
             </span>
             <span className="ops-chart-insight">
-              <TrendingUpIcon width={14} height={14} /> Total creators: {overview?.totalCreators ?? 0}
+              <TrendingUpIcon width={14} height={14} /> Total registered creators: {overview?.totalCreators ?? 0}
             </span>
           </div>
         </article>
@@ -274,26 +317,26 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
           <PanelHeading title="System health" description="Live cluster telemetry" />
           <div className="ops-health-score">
             <div className="ops-score-ring">
-              <span><b>{stats?.systemHealth?.uptime ?? "99.98%"}</b><small>uptime</small></span>
+              <span><b>{stats?.systemHealth?.uptime || "100%"}</b><small>uptime</small></span>
             </div>
-            <p>All core backend services operational.</p>
+            <p>Database & backend services operational.</p>
           </div>
           <div className="ops-health-list">
             <div>
               <span><i className="is-ok" />REST API</span>
-              <b>{stats?.systemHealth?.restApiLatencyMs ?? 12} ms</b>
+              <b>{stats?.systemHealth ? `${stats.systemHealth.restApiLatencyMs} ms` : "..."}</b>
             </div>
             <div>
               <span><i className="is-ok" />PostgreSQL Database</span>
-              <b>{stats?.systemHealth?.databaseLatencyMs ?? 18} ms</b>
+              <b>{stats?.systemHealth ? `${stats.systemHealth.databaseLatencyMs} ms` : "..."}</b>
             </div>
             <div>
               <span><i className="is-ok" />Internal Media Storage</span>
-              <b>{stats?.systemHealth?.cloudStorageLatencyMs ?? 1} ms</b>
+              <b>{stats?.systemHealth ? `${stats.systemHealth.cloudStorageLatencyMs} ms` : "..."}</b>
             </div>
             <div>
               <span><i className="is-ok" />Email Service</span>
-              <b>{stats?.systemHealth?.emailServiceStatus ?? "Active"}</b>
+              <b>{stats?.systemHealth?.emailServiceStatus || "Active"}</b>
             </div>
           </div>
         </aside>
@@ -303,7 +346,7 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
         <article className="ops-panel ops-recent-users">
           <PanelHeading
             title="Recent accounts"
-            description="Accounts that recently joined or verified on the platform"
+            description="Accounts registered in PostgreSQL app_users table"
           />
           <div className="ops-table-wrap">
             <table className="ops-table">
@@ -369,32 +412,40 @@ export function AdminDashboardPage({ onNavigate: _onNavigate }: DashboardProps) 
         <aside className="ops-panel ops-activity-feed">
           <PanelHeading
             title="Top Played Tracks"
-            description="Most streamed tracks on MagiSound"
+            description="Most streamed tracks on MagiSound from PostgreSQL"
           />
           <div className="ops-timeline">
             {stats?.topTracks && stats.topTracks.length > 0 ? (
-              stats.topTracks.slice(0, 4).map((track, idx) => {
+              stats.topTracks.slice(0, 5).map((track, idx) => {
                 const toneClass = idx === 0 ? "is-cyan" : idx === 1 ? "is-violet" : idx === 2 ? "is-amber" : "is-green";
                 return (
-                  <div key={track.id}>
-                    <span className={toneClass}>
-                      <DiscIcon width={14} height={14} />
-                    </span>
-                    <p>
-                      <b>{track.title}</b> · <span style={{ color: "var(--ops-text-muted)" }}>{track.uploaderName}</span>
-                      <small>
-                        {track.playCount.toLocaleString()} plays · {track.genreName || "Music"}
+                  <div key={track.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    {track.coverUrl ? (
+                      <img
+                        src={track.coverUrl}
+                        alt=""
+                        style={{ width: "36px", height: "36px", borderRadius: "6px", objectFit: "cover", flexShrink: 0 }}
+                      />
+                    ) : (
+                      <span className={toneClass}>
+                        <DiscIcon width={14} height={14} />
+                      </span>
+                    )}
+                    <p style={{ margin: 0, flex: 1, minWidth: 0 }}>
+                      <b style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        #{idx + 1} {track.title}
+                      </b>
+                      <small style={{ color: "var(--ops-text-muted)" }}>
+                        {track.uploaderName} · {track.playCount.toLocaleString()} plays · {track.genreName || "Music"}
                       </small>
                     </p>
                   </div>
                 );
               })
             ) : (
-              <>
-                <div><span className="is-cyan"><UserIcon width={14} height={14} /></span><p><b>Admin account active</b><small>Telemetry live</small></p></div>
-                <div><span className="is-violet"><DiscIcon width={14} height={14} /></span><p><b>Catalog synchronized</b><small>All genres online</small></p></div>
-                <div><span className="is-green"><CheckIcon width={14} height={14} /></span><p>Database backup verified.<small>PostgreSQL 18</small></p></div>
-              </>
+              <div style={{ textAlign: "center", padding: "20px", color: "var(--ops-text-muted)" }}>
+                No track playback activity recorded yet.
+              </div>
             )}
           </div>
         </aside>

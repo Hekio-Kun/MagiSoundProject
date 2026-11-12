@@ -1313,12 +1313,15 @@ export function LyricSyncTab({
           className="button button-primary"
           onClick={handleApply}
           disabled={lines.length === 0}
-          title={lines.length === 0 ? "Vui lòng Parse câu hát trước khi áp dụng vào bài hát" : "Apply lyrics to track"}
+          title={lines.length === 0 ? "Please parse lines first before applying lyrics to the track" : "Apply lyrics to track"}
           style={{
             display: "inline-flex",
             alignItems: "center",
             gap: "6px",
-            opacity: lines.length === 0 ? 0.45 : 1,
+            background: lines.length === 0 ? "#94a3b8" : "#000000",
+            borderColor: lines.length === 0 ? "#94a3b8" : "#000000",
+            color: "#ffffff",
+            opacity: lines.length === 0 ? 0.6 : 1,
             cursor: lines.length === 0 ? "not-allowed" : "pointer",
             pointerEvents: lines.length === 0 ? "none" : "auto",
           }}

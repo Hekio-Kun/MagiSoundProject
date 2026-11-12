@@ -770,7 +770,7 @@ export function UploadTrackPage({ isAuthenticated, canUpload, onNavigate, editTr
                 disabled={submitting}
                 onClick={() => {
                   if (!copyrightAgreed) {
-                    setModalAlert("Vui lòng xác nhận bạn sở hữu bản quyền nội dung và đồng ý với điều khoản của MagiSound trước khi gửi duyệt!");
+                    setModalAlert("Please confirm that you own the rights to this audio and artwork, and agree to MagiSound Community Guidelines before submitting for review.");
                     return;
                   }
                   setModalAlert(null);

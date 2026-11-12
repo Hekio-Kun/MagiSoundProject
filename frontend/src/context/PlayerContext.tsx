@@ -19,6 +19,7 @@ export interface PlayerContextType {
   ) => void;
   togglePlay: () => void;
   setAudioPlaying: (shouldPlay: boolean) => void;
+  addToQueue: (track: LandingTrack) => void;
   toggleQueue: () => void;
   setQueueOpen: (open: boolean) => void;
   removeFromQueue: (trackId: number) => void;
@@ -74,6 +75,10 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       audio.pause();
     };
   }, [audio]);
+
+  const addToQueue = useCallback((track: LandingTrack) => {
+    setQueue((prev) => (prev.some((item) => item.id === track.id) ? prev : [...prev, track]));
+  }, []);
 
   const setAudioPlaying = useCallback(
     (shouldPlay: boolean) => {
@@ -197,6 +202,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         playTrack,
         togglePlay,
         setAudioPlaying,
+        addToQueue,
         toggleQueue,
         setQueueOpen,
         removeFromQueue,

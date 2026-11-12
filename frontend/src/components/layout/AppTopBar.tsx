@@ -25,6 +25,8 @@ export function AppTopBar({ user, isAuthenticated, onNavigate, onLogout, unreadN
         const hashQuery = window.location.hash.split("?")[1] || "";
         const params = new URLSearchParams(hashQuery);
         setQuery(params.get("q") || "");
+      } else {
+        setQuery("");
       }
     };
     syncQueryFromHash();

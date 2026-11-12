@@ -163,6 +163,91 @@ body { overflow-x: hidden; }
 .sw-card-subtitle { display: block; overflow: hidden; margin: 5px 2px 8px; color: var(--sw-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .sw-card-meta { display: flex; align-items: center; gap: 5px; margin-inline: 2px; color: #98a2b3; font-size: 9.5px; }
 
+.sw-track-cover-wrap {
+  position: relative;
+  width: 100%;
+}
+.sw-card-quick-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.sw-track-card:hover .sw-card-quick-actions,
+.sw-card-quick-actions:focus-within,
+.sw-card-quick-actions:has(.is-favorite) {
+  opacity: 1;
+  transform: translateY(0);
+}
+.sw-card-action-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s, background 0.15s, color 0.15s;
+}
+.sw-card-action-btn:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.95);
+}
+.sw-card-action-btn.is-favorite {
+  color: #ef4444;
+  opacity: 1;
+}
+.sw-card-playlist-dropdown {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  z-index: 50;
+  width: 170px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sw-card-playlist-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  padding: 4px 8px;
+}
+.sw-card-playlist-item {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sw-card-playlist-item:hover {
+  background: #f1f5f9;
+}
+
 .sw-section--split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(370px, .9fr); gap: 22px; }
 .sw-release-panel, .sw-genre-panel { padding: 24px; border: 1px solid var(--sw-border); border-radius: 21px; background: var(--sw-surface); box-shadow: 0 8px 26px rgba(0, 0, 0, .05); }
 .sw-release-list { display: flex; flex-direction: column; }

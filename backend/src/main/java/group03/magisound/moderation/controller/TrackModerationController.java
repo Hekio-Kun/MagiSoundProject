@@ -43,7 +43,7 @@ public class TrackModerationController {
     public ResponseEntity<Page<SubmissionQueueItemResponse>> getQueue(
             @RequestParam(required = false) SubmissionStatus status,
             @RequestParam(required = false) String search,
-            @PageableDefault(sort = "submittedAt", direction = Sort.Direction.ASC) Pageable pageable) {
+            @PageableDefault(sort = "submittedAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(moderationService.getQueue(status, search, pageable));
     }
 
